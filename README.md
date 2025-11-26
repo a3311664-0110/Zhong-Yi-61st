@@ -228,7 +228,7 @@
                             </a>
 
                             <!-- 3. Gemini Link: Medium Dark Brown -->
-                            <a href="https://gemini.google.com/share/287652567e44" target="_blank" class="btn-hover block w-full bg-[#5d4037] text-white text-center py-3 px-6 rounded-sm">
+                            <a href="https://a3311664-0110.github.io/Zhong-Yi-61st-Road-Running/" target="_blank" class="btn-hover block w-full bg-[#5d4037] text-white text-center py-3 px-6 rounded-sm">
                                 <div class="flex items-center justify-center">
                                     <i class="fa-solid fa-robot mr-3 text-wood-light opacity-80"></i>
                                     <span class="font-bold tracking-wide">忠義國小體育六十一週年校慶路跑</span>
