@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
@@ -227,39 +228,47 @@
                                 </div>
                             </a>
 
-                            <!-- 3. Gemini Link: Medium Dark Brown -->
-                            <a href="https://a3311664-0110.github.io/Zhong-Yi-61st-Road-Running/" target="_blank" class="btn-hover block w-full bg-[#5d4037] text-white text-center py-3 px-6 rounded-sm">
+                            <!-- 3. Market Map Link: New Brown Shade -->
+                            <a href="https://drive.google.com/file/d/19NlD1tOSdOootJXXII2A2xQjp0xvhBu2/view?usp=sharing" target="_blank" class="btn-hover block w-full bg-[#5d4037] text-white text-center py-3 px-6 rounded-sm">
+                                <div class="flex items-center justify-center">
+                                    <i class="fa-solid fa-store mr-3 text-wood-light opacity-80"></i>
+                                    <span class="font-medium">市集班級攤位位置圖</span>
+                                </div>
+                            </a>
+
+                            <!-- 4. Gemini Link: Medium Dark Brown -->
+                            <a href="https://gemini.google.com/share/287652567e44" target="_blank" class="btn-hover block w-full bg-[#6d4c41] text-white text-center py-3 px-6 rounded-sm">
                                 <div class="flex items-center justify-center">
                                     <i class="fa-solid fa-robot mr-3 text-wood-light opacity-80"></i>
                                     <span class="font-bold tracking-wide">忠義國小體育六十一週年校慶路跑</span>
                                 </div>
                             </a>
 
-                            <!-- 4. Results Link: Medium Brown -->
-                            <a href="https://docs.google.com/spreadsheets/d/1EbBJzfaweRRdTrR9oKaV-33ckmUFz_p3F-tTpnifmK0/edit?usp=sharing" target="_blank" class="btn-hover block w-full bg-[#6d4c41] text-white text-center py-3 px-6 rounded-sm">
+                            <!-- 5. Results Link: Medium Brown -->
+                            <a href="https://docs.google.com/spreadsheets/d/1EbBJzfaweRRdTrR9oKaV-33ckmUFz_p3F-tTpnifmK0/edit?usp=sharing" target="_blank" class="btn-hover block w-full bg-[#795548] text-white text-center py-3 px-6 rounded-sm">
                                 <div class="flex items-center justify-center">
                                     <i class="fa-solid fa-trophy mr-3 text-wood-light opacity-80"></i>
                                     <span class="font-bold">競賽成績專區 (最新資訊)</span>
                                 </div>
                             </a>
 
-                            <!-- 5. Presentation: Light Medium Brown -->
-                            <a href="https://docs.google.com/presentation/d/1KsDhXPuPH0xcGAlKZO4RU572JOW67XKbvyQnXQ1tWRY/edit?usp=sharing" target="_blank" class="btn-hover block w-full bg-[#795548] text-white text-center py-3 px-6 rounded-sm">
+                            <!-- 6. Presentation: Light Medium Brown -->
+                            <a href="https://docs.google.com/presentation/d/1KsDhXPuPH0xcGAlKZO4RU572JOW67XKbvyQnXQ1tWRY/edit?usp=sharing" target="_blank" class="btn-hover block w-full bg-[#8d6e63] text-white text-center py-3 px-6 rounded-sm">
                                 <div class="flex items-center justify-center">
                                     <i class="fa-solid fa-chart-simple mr-3 text-wood-light opacity-80"></i>
                                     <span class="font-medium">簡報檔 (競賽規則詳解)</span>
                                 </div>
                             </a>
 
-                            <!-- 6. Registration: Light Brown -->
-                            <a href="https://reurl.cc/qYxDn3" target="_blank" class="btn-hover block w-full bg-[#8d6e63] text-white text-center py-3 px-6 rounded-sm">
+                            <!-- 7. Registration: Light Brown -->
+                            <a href="https://reurl.cc/qYxDn3" target="_blank" class="btn-hover block w-full bg-[#a1887f] text-white text-center py-3 px-6 rounded-sm">
                                 <div class="flex items-center justify-center">
                                     <i class="fa-solid fa-pen-to-square mr-3 text-wood-light opacity-80"></i>
                                     <span class="font-medium">報名連結 (點此進入)</span>
                                 </div>
                             </a>
                             
-                            <!-- 7. Sprint Results: Text Link -->
+                            <!-- 8. Sprint Results: Text Link -->
                             <a href="https://reurl.cc/gnkoLN" target="_blank" class="block w-full text-center py-3 px-6 text-sm text-[#a1887f] hover:text-wood-main transition-colors mt-2">
                                 <i class="fa-solid fa-lock mr-2 text-xs"></i>學生短跑成績查詢 (教師參考用)
                             </a>
