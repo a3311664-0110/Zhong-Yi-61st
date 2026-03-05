@@ -181,7 +181,7 @@
                                 <ul class="space-y-3 sm:space-y-4 text-zinc-300 text-sm sm:text-base">
                                     <li class="flex items-start bg-zinc-800/30 p-3 rounded-md border-l-2 border-pink-500/50">
                                         <i data-lucide="target" class="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 shrink-0 mt-0.5 mr-2 sm:mr-3"></i>
-                                        <div><span class="font-bold text-white">好球計算：</span>發生以下任一情況即計為一好球：(1) 揮棒落空 (2) 擊出界外球 (3) 擊出之滾地球未越過 5 公尺線。<br><span class="text-pink-400 font-bold mt-1 inline-block tracking-wide">⚠️ 單一打者累計 3 好球即判定出局。</span></div>
+                                        <div><span class="font-bold text-white">好球計算：</span>發生以下任一情況即計為 1 好球：(1) 揮棒落空 (2) 擊出界外球 (3) 擊出之滾地球未越過 5 公尺線。<br><span class="text-pink-400 font-bold mt-1 inline-block tracking-wide">⚠️ 單一打者累計 3 好球即判定出局。</span></div>
                                     </li>
                                     <li class="flex items-start bg-zinc-800/30 p-3 rounded-md border-l-2 border-pink-500/50">
                                         <i data-lucide="map-pin" class="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 shrink-0 mt-0.5 mr-2 sm:mr-3"></i>
@@ -270,7 +270,7 @@
             <!-- ==================== 導師戰術板 Tab ==================== -->
             <div id="tab-tactics" class="tab-content space-y-6 sm:space-y-8">
                 <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-wide flex items-center mb-4 sm:mb-6">
-                    <span class="w-1.5 sm:w-2 h-6 sm:h-8 bg-pink-500 mr-2 sm:mr-3 transform -skew-x-12"></span>賽前最終檢核表
+                        <span class="w-1.5 sm:w-2 h-6 sm:h-8 bg-pink-500 mr-2 sm:mr-3 transform -skew-x-12"></span>賽前最終檢核表
                 </h2>
                 
                 <div class="bg-pink-900/10 border-2 border-pink-500/50 p-5 sm:p-8 relative overflow-hidden group rounded-xl shadow-lg">
@@ -506,7 +506,7 @@
     <script>
         lucide.createIcons();
 
-        // MIT 防護：防止 XSS 注入攻擊 (O(1) String Replace)
+        // MIT 防護：防止 XSS 注入攻擊
         const escapeHTML = (str) => {
             if (!str) return '';
             return str.toString().replace(/[&<>'"]/g, 
@@ -607,7 +607,6 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 if (btn.dataset.target === tabId) {
                     btn.className = 'tab-btn snap-start flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-5 sm:px-6 py-3.5 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-pink-500 border-pink-500 bg-pink-500/10 text-xs sm:text-sm';
-                    // Scroll active tab into view on mobile
                     btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 } else {
                     btn.className = 'tab-btn snap-start flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-5 sm:px-6 py-3.5 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm';
@@ -625,7 +624,7 @@
         function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; document.getElementById('admin-passcode-input').focus(); document.body.classList.add('modal-open'); }
         function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; document.body.classList.remove('modal-open'); }
 
-        /* --- 靜態內容渲染 (只在 Load 執行一次) --- */
+        /* --- 靜態內容渲染 --- */
         function renderGradeCards() {
             const container = document.getElementById('grade-cards-container');
             const createScoringIll = (type) => {
@@ -698,6 +697,7 @@
             `).join('');
         }
 
+        /* --- 戰術板：檢核表渲染 --- */
         function renderChecklist() {
             const container = document.getElementById('checklist-container');
             const items = [
@@ -732,6 +732,7 @@
             renderChecklist();
         }
 
+        /* --- 賽程表渲染 (Grid 佈局，完美防截斷) --- */
         function renderSchedule() {
             const container = document.getElementById('schedule-container');
             const groups = [
@@ -751,26 +752,28 @@
                     const bWon = isCompleted && scoreB > scoreA;
 
                     const scoreHtml = isCompleted ? `
-                        <div class="flex items-center space-x-2 sm:space-x-3 font-black text-xl sm:text-2xl px-1 sm:px-0">
+                        <div class="flex items-center justify-center space-x-1 sm:space-x-2 font-black text-xl sm:text-2xl">
                             <span class="${aWon ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreA}</span>
                             <span class="text-zinc-600 text-sm sm:text-base pb-1">-</span>
                             <span class="${bWon ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreB}</span>
                         </div>
-                    ` : `<span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase mx-1.5 sm:mx-2 px-1 sm:px-0">vs</span>`;
+                    ` : `<div class="flex items-center justify-center"><span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase">vs</span></div>`;
 
                     return `
                         <li class="flex flex-col sm:flex-row sm:items-center justify-between bg-black p-3 sm:p-4 border transition-all duration-300 group cursor-default relative overflow-hidden rounded-lg ${isCompleted ? 'border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.1)]' : 'border-zinc-800 hover:border-pink-500/50 hover:bg-zinc-900/50'}">
-                            <div class="flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-0 relative z-10 w-full sm:w-auto justify-between sm:justify-start border-b sm:border-0 border-zinc-800 pb-2.5 sm:pb-0">
+                            <div class="flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-0 relative z-10 w-full sm:w-auto justify-between sm:justify-start border-b sm:border-0 border-zinc-800 pb-2.5 sm:pb-0 shrink-0">
                                 <div class="flex items-center space-x-2 sm:space-x-3">
                                     <div class="px-2 sm:px-2.5 py-1 font-mono font-bold border-l-[3px] text-[10px] sm:text-sm transition-colors rounded-r-sm ${isCompleted ? 'bg-pink-600 text-white border-pink-400' : 'bg-zinc-900 text-zinc-300 border-pink-500 group-hover:bg-pink-600 group-hover:text-white'}">${m.date}</div>
                                     <div class="text-zinc-500 font-mono text-[10px] sm:text-sm font-bold">${m.time}</div>
                                 </div>
                                 <div class="text-pink-500 font-black text-[9px] sm:text-xs border border-pink-500/30 bg-pink-500/5 px-2 py-0.5 rounded uppercase tracking-widest">${m.match}</div>
                             </div>
-                            <div class="flex items-center justify-center space-x-2 sm:space-x-5 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md border transition-colors relative z-10 w-full sm:w-auto ${isCompleted ? 'bg-zinc-900/90 border-zinc-700' : 'bg-zinc-950 border-zinc-800/50 group-hover:border-pink-500/30 shadow-inner'}">
-                                <span class="min-w-[3rem] sm:min-w-[4rem] text-center font-black text-lg sm:text-xl tracking-widest ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamA}</span>
+                            
+                            <!-- MIT 優化: 採用 Grid 三等分排版，保證班級文字絕對不會被截斷 -->
+                            <div class="grid grid-cols-3 items-center px-2 sm:px-4 py-2 sm:py-2.5 rounded-md border transition-colors relative z-10 w-full sm:w-[240px] shrink-0 ${isCompleted ? 'bg-zinc-900/90 border-zinc-700' : 'bg-zinc-950 border-zinc-800/50 group-hover:border-pink-500/30 shadow-inner'}">
+                                <div class="text-right font-black text-lg sm:text-xl tracking-widest ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')} truncate">${m.teamA}</div>
                                 ${scoreHtml}
-                                <span class="min-w-[3rem] sm:min-w-[4rem] text-center font-black text-lg sm:text-xl tracking-widest ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamB}</span>
+                                <div class="text-left font-black text-lg sm:text-xl tracking-widest ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')} truncate">${m.teamB}</div>
                             </div>
                             ${isCompleted && !isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/10 to-transparent opacity-50"></div>' : ''}
                         </li>
@@ -959,7 +962,6 @@
             if(state.lineup.grade && state.lineup.grade !== '6') checkDuplicates();
         }
 
-        // MIT: O(N) 防抖動與效能優化
         let inputTimeout;
         function handleLineupInput(idx, field, el) {
             state.lineup.data[idx][field] = escapeHTML(el.value);
@@ -979,7 +981,6 @@
 
         function checkDuplicates() {
             const limit = getGradeAlertData(state.lineup.grade).limit;
-            // O(N) Hash Map 統計
             const counts = {};
             for (let i = 0; i < limit; i++) {
                 const num = state.lineup.data[i].number.trim();
@@ -1083,7 +1084,7 @@
             updateLineupUIState(); showToast(`${state.lineup.cls} 班打擊順序已儲存`);
         }
 
-        /* --- 成績區邏輯 --- */
+        /* --- 成績區邏輯 (Grid 排版) --- */
         function handleAdminAuth(e) {
             e.preventDefault();
             const input = document.getElementById('admin-passcode-input');
@@ -1103,9 +1104,9 @@
         function renderScoreboard() {
             const sStatus = document.getElementById('admin-lock-status');
             if (state.admin.isUnlocked) {
-                sStatus.innerHTML = `<span class="text-xs sm:text-sm font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center bg-green-500/10 w-fit shadow-inner"><i data-lucide="unlock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> 管理模式：可新增/刪除比分</span>`;
+                sStatus.innerHTML = `<span class="text-[10px] sm:text-xs font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center bg-green-500/10 w-fit shadow-inner"><i data-lucide="unlock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> 管理模式：可新增/刪除比分</span>`;
             } else {
-                sStatus.innerHTML = `<button onclick="openAdminModal()" class="text-xs sm:text-sm font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center bg-zinc-800 hover:bg-zinc-700 w-fit transition-all shadow-md active:scale-95 group"><i data-lucide="lock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-pink-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
+                sStatus.innerHTML = `<button onclick="openAdminModal()" class="text-[10px] sm:text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center bg-zinc-800 hover:bg-zinc-700 w-fit transition-all shadow-md active:scale-95 group"><i data-lucide="lock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-pink-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
             }
 
             const container = document.getElementById('scoreboard-container');
@@ -1124,31 +1125,40 @@
                                 </div>`;
                         } else {
                             contentHtml = `
-                                <form onsubmit="submitScore(event, '${m.id}')" class="flex items-center justify-between mt-3 space-x-1.5 sm:space-x-3 bg-zinc-950 p-2 sm:p-3 rounded-lg border border-zinc-800/80 shadow-inner">
-                                    <span class="font-black text-zinc-300 text-sm sm:text-base min-w-[3rem] sm:min-w-[4rem] text-right">${m.teamA}</span>
-                                    <input name="scoreA" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 sm:py-2 focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none transition-colors shadow-inner">
-                                    <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic">vs</span>
-                                    <input name="scoreB" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 sm:py-2 focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none transition-colors shadow-inner">
-                                    <span class="font-black text-zinc-300 text-sm sm:text-base min-w-[3rem] sm:min-w-[4rem] text-left">${m.teamB}</span>
-                                    <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-1.5 sm:p-2 rounded-md transition-transform active:scale-95 ml-1 sm:ml-2 shadow-md" title="儲存"><i data-lucide="save" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
+                                <form onsubmit="submitScore(event, '${m.id}')" class="grid grid-cols-[1fr_auto_auto_auto_1fr_auto] items-center gap-1 sm:gap-2 mt-3 bg-zinc-950 p-2 sm:p-3 rounded-lg border border-zinc-800/80 shadow-inner w-full overflow-x-auto">
+                                    <span class="font-black text-zinc-300 text-sm sm:text-base text-right whitespace-nowrap">${m.teamA}</span>
+                                    <input name="scoreA" type="number" min="0" required placeholder="分" class="w-10 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 focus:ring-1 focus:ring-pink-500 outline-none transition-colors">
+                                    <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic px-1">vs</span>
+                                    <input name="scoreB" type="number" min="0" required placeholder="分" class="w-10 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 focus:ring-1 focus:ring-pink-500 outline-none transition-colors">
+                                    <span class="font-black text-zinc-300 text-sm sm:text-base text-left whitespace-nowrap">${m.teamB}</span>
+                                    <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-1.5 sm:p-2 rounded-md transition-transform active:scale-95 shadow-md ml-1" title="儲存"><i data-lucide="save" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
                                 </form>`;
                         }
                     } else {
                         if (isComp) {
                             const sA = parseInt(m.scoreA), sB = parseInt(m.scoreB);
                             contentHtml = `
-                                <div class="text-xl sm:text-2xl font-black text-zinc-300 flex items-center justify-center mt-3 py-1.5 sm:py-2 bg-zinc-950/50 rounded-lg border border-zinc-800/30">
-                                    <span class="${sA > sB ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-white' : 'text-zinc-500')}">${m.teamA} <span class="ml-1.5 sm:ml-3 text-white">${m.scoreA}</span></span>
-                                    <span class="text-zinc-600 mx-3 sm:mx-5 font-normal text-base sm:text-lg">-</span>
-                                    <span class="${sB > sA ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-white' : 'text-zinc-500')}"><span class="mr-1.5 sm:mr-3 text-white">${m.scoreB}</span> ${m.teamB}</span>
+                                <div class="grid grid-cols-3 items-center mt-3 py-1.5 sm:py-2 bg-zinc-950/50 rounded-lg border border-zinc-800/30 w-full">
+                                    <div class="text-right font-black text-lg sm:text-xl tracking-widest ${sA > sB ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-zinc-400' : 'text-zinc-300')}">
+                                        ${m.teamA} <span class="ml-1 sm:ml-2 text-white">${m.scoreA}</span>
+                                    </div>
+                                    <div class="text-center text-zinc-600 mx-1 font-normal text-sm sm:text-base">-</div>
+                                    <div class="text-left font-black text-lg sm:text-xl tracking-widest ${sB > sA ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-zinc-400' : 'text-zinc-300')}">
+                                        <span class="mr-1 sm:mr-2 text-white">${m.scoreB}</span> ${m.teamB}
+                                    </div>
                                 </div>`;
                         } else {
-                            contentHtml = `<div class="text-lg sm:text-xl font-black text-zinc-300 flex items-center justify-center mt-3 py-1.5 sm:py-2 bg-zinc-950/30 rounded-lg border border-zinc-800/20"><span class="text-sm sm:text-base font-bold text-zinc-600 tracking-widest">${m.teamA} <span class="mx-2 sm:mx-3 text-[10px] sm:text-xs italic">vs</span> ${m.teamB}</span></div>`;
+                            contentHtml = `
+                                <div class="grid grid-cols-3 items-center mt-3 py-2 bg-zinc-950/30 rounded-lg border border-zinc-800/20 w-full">
+                                    <div class="text-right text-sm sm:text-base font-bold text-zinc-400 tracking-widest">${m.teamA}</div>
+                                    <div class="text-center text-[10px] sm:text-xs italic text-zinc-600">vs</div>
+                                    <div class="text-left text-sm sm:text-base font-bold text-zinc-400 tracking-widest">${m.teamB}</div>
+                                </div>`;
                         }
                     }
 
                     return `
-                        <div class="flex flex-col bg-black border ${isComp ? 'border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.05)]' : 'border-zinc-800 hover:border-pink-500/50'} p-4 sm:p-5 rounded-xl transition-all duration-300">
+                        <div class="flex flex-col bg-black border ${isComp ? 'border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.05)]' : 'border-zinc-800 hover:border-pink-500/50'} p-4 sm:p-5 rounded-xl transition-all duration-300 w-full">
                             <div class="flex justify-between items-center mb-1 sm:mb-2 border-b border-zinc-800/50 pb-2.5 sm:pb-3">
                                 <span class="text-[10px] sm:text-xs text-zinc-400 font-mono bg-zinc-900 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md font-bold shadow-inner">${m.match}</span>
                                 <span class="text-[9px] sm:text-[10px] ${isComp ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-zinc-800 text-zinc-500'} px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md uppercase tracking-widest font-black">${isComp ? '已發佈' : '未登錄'}</span>
@@ -1158,7 +1168,7 @@
                 }).join('');
 
                 return `
-                    <div class="space-y-3 sm:space-y-4 bg-zinc-950 p-4 sm:p-6 rounded-2xl border border-zinc-800/80 shadow-lg">
+                    <div class="space-y-3 sm:space-y-4 bg-zinc-950 p-4 sm:p-6 rounded-2xl border border-zinc-800/80 shadow-lg w-full">
                         <h4 class="text-sm sm:text-base font-black text-pink-500 tracking-widest border-b-2 border-zinc-800 pb-2.5 sm:pb-3 mb-3 sm:mb-4 flex items-center"><span class="bg-pink-900/30 border border-pink-500/20 px-2.5 py-1 rounded-md mr-2 sm:mr-2.5 shadow-sm">${grade}</span> 年級</h4>
                         ${matchesHtml}
                     </div>`;
