@@ -752,12 +752,12 @@
                     const bWon = isCompleted && scoreB > scoreA;
 
                     const scoreHtml = isCompleted ? `
-                        <div class="flex items-center justify-center space-x-1 sm:space-x-2 font-black text-xl sm:text-2xl">
+                        <div class="flex items-center justify-center space-x-1 sm:space-x-2 font-black text-lg sm:text-xl shrink-0">
                             <span class="${aWon ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreA}</span>
                             <span class="text-zinc-600 text-sm sm:text-base pb-1">-</span>
                             <span class="${bWon ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreB}</span>
                         </div>
-                    ` : `<div class="flex items-center justify-center"><span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase">vs</span></div>`;
+                    ` : `<div class="flex items-center justify-center shrink-0 px-2"><span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase">vs</span></div>`;
 
                     return `
                         <li class="flex flex-col sm:flex-row sm:items-center justify-between bg-black p-3 sm:p-4 border transition-all duration-300 group cursor-default relative overflow-hidden rounded-lg ${isCompleted ? 'border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.1)]' : 'border-zinc-800 hover:border-pink-500/50 hover:bg-zinc-900/50'}">
@@ -769,11 +769,13 @@
                                 <div class="text-pink-500 font-black text-[9px] sm:text-xs border border-pink-500/30 bg-pink-500/5 px-2 py-0.5 rounded uppercase tracking-widest">${m.match}</div>
                             </div>
                             
-                            <!-- MIT 優化: 採用 Grid 三等分排版，保證班級文字絕對不會被截斷 -->
-                            <div class="grid grid-cols-3 items-center px-2 sm:px-4 py-2 sm:py-2.5 rounded-md border transition-colors relative z-10 w-full sm:w-[240px] shrink-0 ${isCompleted ? 'bg-zinc-900/90 border-zinc-700' : 'bg-zinc-950 border-zinc-800/50 group-hover:border-pink-500/30 shadow-inner'}">
-                                <div class="text-right font-black text-lg sm:text-xl tracking-widest ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')} truncate">${m.teamA}</div>
-                                ${scoreHtml}
-                                <div class="text-left font-black text-lg sm:text-xl tracking-widest ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')} truncate">${m.teamB}</div>
+                            <!-- 重新排版: 移除 truncate 與 grid，改用 Flex 彈性分配空間並強制不換行 (whitespace-nowrap) -->
+                            <div class="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 rounded-md border transition-colors relative z-10 w-full sm:w-auto min-w-[200px] ${isCompleted ? 'bg-zinc-900/90 border-zinc-700' : 'bg-zinc-950 border-zinc-800/50 group-hover:border-pink-500/30 shadow-inner'}">
+                                <div class="flex-1 text-right font-black text-lg sm:text-xl tracking-widest whitespace-nowrap ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamA}</div>
+                                <div class="mx-3 sm:mx-4 flex justify-center items-center shrink-0">
+                                    ${scoreHtml}
+                                </div>
+                                <div class="flex-1 text-left font-black text-lg sm:text-xl tracking-widest whitespace-nowrap ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamB}</div>
                             </div>
                             ${isCompleted && !isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/10 to-transparent opacity-50"></div>' : ''}
                         </li>
@@ -1120,39 +1122,47 @@
                         if (isComp) {
                             contentHtml = `
                                 <div class="flex items-center justify-between mt-3 bg-zinc-950 p-2.5 sm:p-3 rounded-lg border border-zinc-800/80 shadow-inner">
-                                    <div class="text-base sm:text-lg font-black text-white flex-1 text-center tracking-wider">${m.teamA} <span class="text-pink-500 mx-2 sm:mx-4 drop-shadow-[0_0_5px_rgba(236,72,153,0.5)]">${m.scoreA} : ${m.scoreB}</span> ${m.teamB}</div>
-                                    <button onclick="resetMatchScore('${m.id}')" class="ml-2 sm:ml-3 text-zinc-500 hover:text-red-400 bg-black p-2 rounded-md border border-zinc-800 hover:border-red-500/50 transition-colors shadow-sm active:scale-95" title="刪除成績"><i data-lucide="trash-2" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
+                                    <div class="text-base sm:text-lg font-black text-white flex-1 text-center tracking-wider whitespace-nowrap">${m.teamA} <span class="text-pink-500 mx-2 sm:mx-4 drop-shadow-[0_0_5px_rgba(236,72,153,0.5)]">${m.scoreA} : ${m.scoreB}</span> ${m.teamB}</div>
+                                    <button onclick="resetMatchScore('${m.id}')" class="ml-2 sm:ml-3 text-zinc-500 hover:text-red-400 bg-black p-2 rounded-md border border-zinc-800 hover:border-red-500/50 transition-colors shadow-sm active:scale-95 shrink-0" title="刪除成績"><i data-lucide="trash-2" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
                                 </div>`;
                         } else {
                             contentHtml = `
-                                <form onsubmit="submitScore(event, '${m.id}')" class="grid grid-cols-[1fr_auto_auto_auto_1fr_auto] items-center gap-1 sm:gap-2 mt-3 bg-zinc-950 p-2 sm:p-3 rounded-lg border border-zinc-800/80 shadow-inner w-full overflow-x-auto">
-                                    <span class="font-black text-zinc-300 text-sm sm:text-base text-right whitespace-nowrap">${m.teamA}</span>
-                                    <input name="scoreA" type="number" min="0" required placeholder="分" class="w-10 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 focus:ring-1 focus:ring-pink-500 outline-none transition-colors">
-                                    <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic px-1">vs</span>
-                                    <input name="scoreB" type="number" min="0" required placeholder="分" class="w-10 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 focus:ring-1 focus:ring-pink-500 outline-none transition-colors">
-                                    <span class="font-black text-zinc-300 text-sm sm:text-base text-left whitespace-nowrap">${m.teamB}</span>
-                                    <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-1.5 sm:p-2 rounded-md transition-transform active:scale-95 shadow-md ml-1" title="儲存"><i data-lucide="save" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
+                                <form onsubmit="submitScore(event, '${m.id}')" class="flex items-center justify-center gap-2 sm:gap-3 mt-3 bg-zinc-950 p-2 sm:p-3 rounded-lg border border-zinc-800/80 shadow-inner w-full flex-wrap sm:flex-nowrap">
+                                    <div class="flex items-center justify-end flex-1">
+                                        <span class="font-black text-zinc-300 text-sm sm:text-base whitespace-nowrap">${m.teamA}</span>
+                                    </div>
+                                    <div class="flex items-center justify-center shrink-0 space-x-1 sm:space-x-2">
+                                        <input name="scoreA" type="number" min="0" required placeholder="分" class="w-12 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 focus:ring-1 focus:ring-pink-500 outline-none transition-colors shadow-inner">
+                                        <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic">vs</span>
+                                        <input name="scoreB" type="number" min="0" required placeholder="分" class="w-12 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 focus:ring-1 focus:ring-pink-500 outline-none transition-colors shadow-inner">
+                                    </div>
+                                    <div class="flex items-center justify-start flex-1">
+                                        <span class="font-black text-zinc-300 text-sm sm:text-base whitespace-nowrap">${m.teamB}</span>
+                                    </div>
+                                    <div class="w-full sm:w-auto flex justify-center mt-2 sm:mt-0 shrink-0">
+                                        <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-1.5 sm:p-2 rounded-md transition-transform active:scale-95 shadow-md flex items-center justify-center w-full sm:w-auto" title="儲存"><i data-lucide="save" class="w-4 h-4 sm:w-5 sm:h-5"></i><span class="sm:hidden ml-1 text-xs font-bold">儲存</span></button>
+                                    </div>
                                 </form>`;
                         }
                     } else {
                         if (isComp) {
                             const sA = parseInt(m.scoreA), sB = parseInt(m.scoreB);
                             contentHtml = `
-                                <div class="grid grid-cols-3 items-center mt-3 py-1.5 sm:py-2 bg-zinc-950/50 rounded-lg border border-zinc-800/30 w-full">
-                                    <div class="text-right font-black text-lg sm:text-xl tracking-widest ${sA > sB ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-zinc-400' : 'text-zinc-300')}">
+                                <div class="flex items-center justify-center mt-3 py-2 bg-zinc-950/50 rounded-lg border border-zinc-800/30 w-full px-2">
+                                    <div class="flex-1 text-right font-black text-lg sm:text-xl tracking-widest whitespace-nowrap ${sA > sB ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-zinc-400' : 'text-zinc-300')}">
                                         ${m.teamA} <span class="ml-1 sm:ml-2 text-white">${m.scoreA}</span>
                                     </div>
-                                    <div class="text-center text-zinc-600 mx-1 font-normal text-sm sm:text-base">-</div>
-                                    <div class="text-left font-black text-lg sm:text-xl tracking-widest ${sB > sA ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-zinc-400' : 'text-zinc-300')}">
+                                    <div class="shrink-0 text-center text-zinc-600 mx-3 sm:mx-4 font-normal text-sm sm:text-base">-</div>
+                                    <div class="flex-1 text-left font-black text-lg sm:text-xl tracking-widest whitespace-nowrap ${sB > sA ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)] scale-105 transform transition-transform' : (sA === sB ? 'text-zinc-400' : 'text-zinc-300')}">
                                         <span class="mr-1 sm:mr-2 text-white">${m.scoreB}</span> ${m.teamB}
                                     </div>
                                 </div>`;
                         } else {
                             contentHtml = `
-                                <div class="grid grid-cols-3 items-center mt-3 py-2 bg-zinc-950/30 rounded-lg border border-zinc-800/20 w-full">
-                                    <div class="text-right text-sm sm:text-base font-bold text-zinc-400 tracking-widest">${m.teamA}</div>
-                                    <div class="text-center text-[10px] sm:text-xs italic text-zinc-600">vs</div>
-                                    <div class="text-left text-sm sm:text-base font-bold text-zinc-400 tracking-widest">${m.teamB}</div>
+                                <div class="flex items-center justify-center mt-3 py-2.5 bg-zinc-950/30 rounded-lg border border-zinc-800/20 w-full px-2">
+                                    <div class="flex-1 text-right text-sm sm:text-base font-bold text-zinc-400 tracking-widest whitespace-nowrap">${m.teamA}</div>
+                                    <div class="shrink-0 text-center text-[10px] sm:text-xs italic text-zinc-600 mx-3 sm:mx-4">vs</div>
+                                    <div class="flex-1 text-left text-sm sm:text-base font-bold text-zinc-400 tracking-widest whitespace-nowrap">${m.teamB}</div>
                                 </div>`;
                         }
                     }
