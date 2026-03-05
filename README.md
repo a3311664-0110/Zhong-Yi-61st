@@ -181,7 +181,7 @@
                                 <ul class="space-y-3 sm:space-y-4 text-zinc-300 text-sm sm:text-base">
                                     <li class="flex items-start bg-zinc-800/30 p-3 rounded-md border-l-2 border-pink-500/50">
                                         <i data-lucide="target" class="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 shrink-0 mt-0.5 mr-2 sm:mr-3"></i>
-                                        <div><span class="font-bold text-white">1好球：</span>揮棒落空、界外球、或滾地球未出5公尺線。<br><span class="text-pink-400 font-bold">累計3好球即出局。</span></div>
+                                        <div><span class="font-bold text-white">好球計算：</span>發生以下任一情況即計為一好球：(1) 揮棒落空 (2) 擊出界外球 (3) 擊出之滾地球未越過 5 公尺線。<br><span class="text-pink-400 font-bold mt-1 inline-block tracking-wide">⚠️ 單一打者累計 3 好球即判定出局。</span></div>
                                     </li>
                                     <li class="flex items-start bg-zinc-800/30 p-3 rounded-md border-l-2 border-pink-500/50">
                                         <i data-lucide="map-pin" class="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 shrink-0 mt-0.5 mr-2 sm:mr-3"></i>
@@ -249,7 +249,7 @@
 
             <!-- ==================== 賽程總覽 Tab ==================== -->
             <div id="tab-schedule" class="tab-content space-y-8 sm:space-y-12">
-                <div class="bg-zinc-900 border border-zinc-800 p-5 sm:p-8 relative overflow-hidden rounded-xl shadow-xl">
+                <div class="bg-zinc-900 border border-zinc-800 p-4 sm:p-8 relative overflow-hidden rounded-xl shadow-xl">
                     <div class="absolute right-0 top-0 w-48 sm:w-64 h-48 sm:h-64 bg-pink-500/5 transform rotate-12 translate-x-24 sm:translate-x-32 -translate-y-24 sm:-translate-y-32 pointer-events-none"></div>
                     <h3 class="text-xl sm:text-2xl font-black text-white mb-6 sm:mb-8 tracking-wide flex items-center border-b border-zinc-800 pb-4">
                         <i data-lucide="calendar-days" class="text-pink-500 mr-2 sm:mr-3 w-6 h-6 sm:w-7 sm:h-7"></i>單循環賽程總覽
@@ -751,12 +751,12 @@
                     const bWon = isCompleted && scoreB > scoreA;
 
                     const scoreHtml = isCompleted ? `
-                        <div class="flex items-center space-x-2 sm:space-x-3 font-black text-xl sm:text-2xl px-2 sm:px-0">
+                        <div class="flex items-center space-x-2 sm:space-x-3 font-black text-xl sm:text-2xl px-1 sm:px-0">
                             <span class="${aWon ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreA}</span>
                             <span class="text-zinc-600 text-sm sm:text-base pb-1">-</span>
                             <span class="${bWon ? 'text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreB}</span>
                         </div>
-                    ` : `<span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase mx-2 px-2 sm:px-0">vs</span>`;
+                    ` : `<span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase mx-1.5 sm:mx-2 px-1 sm:px-0">vs</span>`;
 
                     return `
                         <li class="flex flex-col sm:flex-row sm:items-center justify-between bg-black p-3 sm:p-4 border transition-all duration-300 group cursor-default relative overflow-hidden rounded-lg ${isCompleted ? 'border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.1)]' : 'border-zinc-800 hover:border-pink-500/50 hover:bg-zinc-900/50'}">
@@ -767,10 +767,10 @@
                                 </div>
                                 <div class="text-pink-500 font-black text-[9px] sm:text-xs border border-pink-500/30 bg-pink-500/5 px-2 py-0.5 rounded uppercase tracking-widest">${m.match}</div>
                             </div>
-                            <div class="flex items-center justify-center space-x-3 sm:space-x-5 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md border transition-colors relative z-10 w-full sm:w-auto ${isCompleted ? 'bg-zinc-900/90 border-zinc-700' : 'bg-zinc-950 border-zinc-800/50 group-hover:border-pink-500/30 shadow-inner'}">
-                                <span class="w-8 sm:w-12 text-right font-black text-lg sm:text-xl tracking-widest ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamA}</span>
+                            <div class="flex items-center justify-center space-x-2 sm:space-x-5 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md border transition-colors relative z-10 w-full sm:w-auto ${isCompleted ? 'bg-zinc-900/90 border-zinc-700' : 'bg-zinc-950 border-zinc-800/50 group-hover:border-pink-500/30 shadow-inner'}">
+                                <span class="min-w-[3rem] sm:min-w-[4rem] text-center font-black text-lg sm:text-xl tracking-widest ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamA}</span>
                                 ${scoreHtml}
-                                <span class="w-8 sm:w-12 text-left font-black text-lg sm:text-xl tracking-widest ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamB}</span>
+                                <span class="min-w-[3rem] sm:min-w-[4rem] text-center font-black text-lg sm:text-xl tracking-widest ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.teamB}</span>
                             </div>
                             ${isCompleted && !isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/10 to-transparent opacity-50"></div>' : ''}
                         </li>
@@ -1125,11 +1125,11 @@
                         } else {
                             contentHtml = `
                                 <form onsubmit="submitScore(event, '${m.id}')" class="flex items-center justify-between mt-3 space-x-1.5 sm:space-x-3 bg-zinc-950 p-2 sm:p-3 rounded-lg border border-zinc-800/80 shadow-inner">
-                                    <span class="font-black text-zinc-300 text-sm sm:text-base w-8 sm:w-12 text-right">${m.teamA}</span>
+                                    <span class="font-black text-zinc-300 text-sm sm:text-base min-w-[3rem] sm:min-w-[4rem] text-right">${m.teamA}</span>
                                     <input name="scoreA" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 sm:py-2 focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none transition-colors shadow-inner">
                                     <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic">vs</span>
                                     <input name="scoreB" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded-md py-1.5 sm:py-2 focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none transition-colors shadow-inner">
-                                    <span class="font-black text-zinc-300 text-sm sm:text-base w-8 sm:w-12">${m.teamB}</span>
+                                    <span class="font-black text-zinc-300 text-sm sm:text-base min-w-[3rem] sm:min-w-[4rem] text-left">${m.teamB}</span>
                                     <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-1.5 sm:p-2 rounded-md transition-transform active:scale-95 ml-1 sm:ml-2 shadow-md" title="儲存"><i data-lucide="save" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
                                 </form>`;
                         }
