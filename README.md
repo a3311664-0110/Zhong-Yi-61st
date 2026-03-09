@@ -54,13 +54,24 @@
         body.modal-open { overflow: hidden; }
 
         #main-container {
-            min-height: 100vh;
+            min-height: 100vh; /* Fallback for older browsers */
+            min-height: 100dvh; /* Dynamic viewport height for modern mobile browsers */
             display: flex;
             flex-direction: column;
         }
 
         input[type="text"], input[type="password"], input[type="number"], select, button {
-            min-height: 44px;
+            min-height: 44px; /* Mobile touch target standard */
+        }
+
+        /* 移除 number input 預設的上下箭頭，讓介面更乾淨 */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
         }
         
         @keyframes shake {
@@ -84,7 +95,7 @@
 <body class="bg-black text-zinc-200 no-scrollbar">
 
     <!-- 全局提示訊息框 -->
-    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 hidden bg-pink-600 text-white px-6 py-3 rounded-md shadow-2xl items-center space-x-2 animate-in">
+    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 hidden bg-pink-600 text-white px-6 py-3 rounded-full shadow-2xl items-center space-x-2 animate-in whitespace-nowrap">
         <i data-lucide="info" class="w-5 h-5"></i>
         <span id="toast-message" class="font-bold tracking-wide text-sm"></span>
     </div>
@@ -92,7 +103,7 @@
     <!-- 管理員登入 Modal -->
     <div id="admin-login-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
         <div class="bg-zinc-900 border border-zinc-800 rounded-xl w-full max-w-sm p-6 shadow-2xl relative">
-            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors p-2">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <div class="flex flex-col items-center mb-6">
@@ -104,7 +115,8 @@
             </div>
             <form onsubmit="handleAdminAuth(event)" class="space-y-4">
                 <div>
-                    <input type="password" id="admin-passcode-input" class="w-full bg-black border border-zinc-800 rounded-md px-4 py-3 text-center text-white font-mono tracking-widest focus:outline-none focus:border-pink-500 transition-colors" placeholder="••••••" maxlength="6">
+                    <!-- text-base on mobile prevents iOS zoom -->
+                    <input type="password" id="admin-passcode-input" class="w-full bg-black border border-zinc-800 rounded-md px-4 py-3 text-center text-white text-base sm:text-lg font-mono tracking-widest focus:outline-none focus:border-pink-500 transition-colors" placeholder="••••••" maxlength="6">
                     <p id="admin-auth-error" class="hidden text-red-500 text-xs text-center mt-2 font-bold">密碼錯誤，請重新輸入</p>
                 </div>
                 <button type="submit" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 rounded-md transition-all active:scale-95 tracking-widest">驗證解鎖</button>
@@ -116,8 +128,9 @@
         <!-- 標題區 -->
         <header class="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-40">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16 sm:h-20">
-                    <div class="flex items-center space-x-3">
+                <!-- 調整 flex-wrap 確保小螢幕手機不會破版 -->
+                <div class="flex flex-wrap items-center justify-between py-3 sm:py-0 sm:h-20 gap-y-3">
+                    <div class="flex items-center space-x-3 shrink-0">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-pink-500 to-pink-700 rounded-lg flex items-center justify-center shadow-lg transform -rotate-6">
                             <i data-lucide="trophy" class="w-6 h-6 sm:w-7 sm:h-7 text-white"></i>
                         </div>
@@ -127,22 +140,20 @@
                         </div>
                     </div>
                     <!-- 頂部超連結按鈕群 -->
-                    <div class="flex items-center space-x-2 sm:space-x-3">
-                        <a href="https://drive.google.com/file/d/1w3WT5IjYvBD6BNSiOQlogWvd-HwJUTkG/view?usp=sharing" target="_blank" class="flex items-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
+                    <div class="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto justify-end">
+                        <a href="https://drive.google.com/file/d/1w3WT5IjYvBD6BNSiOQlogWvd-HwJUTkG/view?usp=sharing" target="_blank" class="flex-1 sm:flex-none flex items-center justify-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-2 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
                             <i data-lucide="map" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-                            <span class="text-xs sm:text-sm font-bold tracking-widest hidden sm:inline">場地圖</span>
-                            <span class="text-xs font-bold sm:hidden">場地</span>
+                            <span class="text-xs sm:text-sm font-bold tracking-widest">場地圖</span>
                         </a>
-                        <a href="https://drive.google.com/file/d/1GJLKIs04G4LRvf1omVmpTVhfwrC3nu7Z/view?usp=sharing" target="_blank" class="flex items-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
+                        <a href="https://drive.google.com/file/d/1GJLKIs04G4LRvf1omVmpTVhfwrC3nu7Z/view?usp=sharing" target="_blank" class="flex-1 sm:flex-none flex items-center justify-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-2 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
                             <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-                            <span class="text-xs sm:text-sm font-bold tracking-widest hidden sm:inline">大會總表</span>
-                            <span class="text-xs font-bold sm:hidden">總表</span>
+                            <span class="text-xs sm:text-sm font-bold tracking-widest">大會總表</span>
                         </a>
                     </div>
                 </div>
                 
                 <!-- 頁籤導航 -->
-                <nav class="flex overflow-x-auto no-scrollbar -mb-px space-x-2 sm:space-x-8">
+                <nav class="flex overflow-x-auto no-scrollbar -mb-px space-x-2 sm:space-x-8 mt-1 sm:mt-0">
                     <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-pink-500 border-pink-500 bg-pink-500/10 text-xs sm:text-sm" data-target="rules" onclick="switchTab('rules')">
                         <i data-lucide="book-open" class="w-4 h-4"></i><span>賽事規則</span>
                     </button>
@@ -197,14 +208,15 @@
                         <div class="flex flex-col">
                             <label class="text-xs font-bold text-zinc-500 mb-1.5 uppercase tracking-wider pl-1">步驟一：選擇年級下載範本</label>
                             <div class="flex space-x-2">
-                                <select id="lineup-grade-select" class="bg-black border border-zinc-800 text-white text-sm rounded-md focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 sm:p-3 outline-none transition-colors">
+                                <!-- text-base sm:text-sm 防止 iOS 點擊 select 放大畫面 -->
+                                <select id="lineup-grade-select" class="bg-black border border-zinc-800 text-white text-base sm:text-sm rounded-md focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 sm:p-3 outline-none transition-colors">
                                     <option value="">-- 請選擇年級 --</option>
                                     <option value="3">三年級</option>
                                     <option value="4">四年級</option>
                                     <option value="5">五年級</option>
                                     <option value="6">六年級</option>
                                 </select>
-                                <button onclick="handleDownloadTemplate()" class="shrink-0 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold px-4 rounded flex items-center justify-center transition-colors border border-zinc-700" title="下載該年級空白表格">
+                                <button onclick="handleDownloadTemplate()" class="shrink-0 bg-zinc-800 hover:bg-zinc-700 text-white text-xs sm:text-sm font-bold px-4 rounded flex items-center justify-center transition-colors border border-zinc-700" title="下載該年級空白表格">
                                     <i data-lucide="download" class="w-4 h-4 mr-1"></i>下載
                                 </button>
                             </div>
@@ -258,14 +270,14 @@
                         <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center mb-4 sm:mb-0">
                             <i data-lucide="megaphone" class="w-6 h-6 sm:w-8 sm:h-8 mr-3 text-pink-500"></i>成績公告與登錄
                         </h2>
-                        <div id="schedule-admin-lock-status"></div>
+                        <div id="schedule-admin-lock-status" class="w-full sm:w-auto"></div>
                     </div>
                     
                     <div id="scoreboard-wrapper" class="hidden">
-                        <div class="bg-zinc-950 border border-zinc-800 p-6 rounded-xl shadow-lg">
+                        <div class="bg-zinc-950 border border-zinc-800 p-4 sm:p-6 rounded-xl shadow-lg">
                             <div class="flex items-center justify-between border-b border-zinc-800 pb-3 mb-4">
-                                <h3 class="text-lg font-black text-white flex items-center">
-                                    <i data-lucide="pen-tool" class="w-5 h-5 mr-2 text-pink-500"></i>比分與賽果登錄面板
+                                <h3 class="text-base sm:text-lg font-black text-white flex items-center">
+                                    <i data-lucide="pen-tool" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-pink-500"></i>比分與賽果登錄面板
                                 </h3>
                             </div>
                             <div id="scoreboard-container" class="space-y-6 max-h-[600px] overflow-y-auto pr-2 no-scrollbar"></div>
@@ -287,7 +299,7 @@
                 </div>
 
                 <!-- 未解鎖狀態 -->
-                <div id="admin-locked-message" class="flex flex-col items-center justify-center p-12 sm:p-24 bg-zinc-950 border border-zinc-800 rounded-xl shadow-inner">
+                <div id="admin-locked-message" class="flex flex-col items-center justify-center p-8 sm:p-24 bg-zinc-950 border border-zinc-800 rounded-xl shadow-inner mx-2 sm:mx-0">
                     <div class="w-16 h-16 sm:w-20 sm:h-20 bg-zinc-900 rounded-full flex items-center justify-center mb-6 text-zinc-600 border border-zinc-800">
                         <i data-lucide="shield-alert" class="w-8 h-8 sm:w-10 sm:h-10"></i>
                     </div>
@@ -298,37 +310,37 @@
                 <!-- 已解鎖狀態 (管理面板) -->
                 <div id="admin-dashboard-content" class="hidden space-y-8">
 
-                    <!-- 資料庫儲存與還原 (新功能) -->
-                    <div class="bg-zinc-950 border border-zinc-800 p-6 rounded-xl shadow-lg">
-                        <h3 class="text-lg font-black text-white flex items-center border-b border-zinc-800 pb-3 mb-4">
+                    <!-- 資料庫儲存與還原 -->
+                    <div class="bg-zinc-950 border border-zinc-800 p-4 sm:p-6 rounded-xl shadow-lg">
+                        <h3 class="text-base sm:text-lg font-black text-white flex items-center border-b border-zinc-800 pb-3 mb-4">
                             <i data-lucide="save" class="w-5 h-5 mr-2 text-pink-500"></i>系統資料庫儲存與還原
                         </h3>
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <button onclick="backupSystemData()" class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-4 rounded-lg font-bold flex flex-col items-center justify-center transition-all shadow-md border border-zinc-700 hover:border-pink-500">
+                            <button onclick="backupSystemData()" class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-4 rounded-lg font-bold flex flex-col items-center justify-center transition-all shadow-md border border-zinc-700 hover:border-pink-500">
                                 <i data-lucide="download-cloud" class="w-6 h-6 mb-2 text-pink-400"></i>
-                                <span>備份 / 下載系統資料</span>
-                                <span class="text-[10px] text-zinc-500 font-normal mt-1">手動儲存所有打線與成績防止遺失</span>
+                                <span class="text-sm sm:text-base">備份 / 下載系統資料</span>
+                                <span class="text-[10px] text-zinc-400 font-normal mt-1 text-center">手動儲存所有賽程與成績防止遺失</span>
                             </button>
-                            <label class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-4 rounded-lg font-bold flex flex-col items-center justify-center transition-all shadow-md border border-zinc-700 hover:border-green-500 cursor-pointer">
+                            <label class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-4 rounded-lg font-bold flex flex-col items-center justify-center transition-all shadow-md border border-zinc-700 hover:border-green-500 cursor-pointer">
                                 <i data-lucide="upload-cloud" class="w-6 h-6 mb-2 text-green-400"></i>
-                                <span>還原 / 上傳系統資料</span>
-                                <span class="text-[10px] text-zinc-500 font-normal mt-1">從之前的 JSON 備份檔還原所有資料</span>
+                                <span class="text-sm sm:text-base">還原 / 上傳系統資料</span>
+                                <span class="text-[10px] text-zinc-400 font-normal mt-1 text-center">從之前的 JSON 備份檔還原所有資料</span>
                                 <input type="file" accept=".json" class="hidden" onchange="restoreSystemData(event)">
                             </label>
                         </div>
                     </div>
 
                     <!-- 檔案上傳區 -->
-                    <div class="bg-zinc-950 border border-zinc-800 p-6 rounded-xl shadow-lg h-fit">
-                        <h3 class="text-lg font-black text-white flex items-center border-b border-zinc-800 pb-3 mb-4">
+                    <div class="bg-zinc-950 border border-zinc-800 p-4 sm:p-6 rounded-xl shadow-lg h-fit">
+                        <h3 class="text-base sm:text-lg font-black text-white flex items-center border-b border-zinc-800 pb-3 mb-4">
                             <i data-lucide="upload-cloud" class="w-5 h-5 mr-2 text-pink-500"></i>賽事附件發佈
                         </h3>
                         <div id="attachment-upload-container" class="mb-4">
                             <label for="file-upload" class="flex flex-col items-center justify-center w-full h-40 border-2 border-zinc-700 border-dashed rounded-lg cursor-pointer bg-black hover:bg-zinc-900 transition-colors group">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <i data-lucide="cloud-upload" class="w-10 h-10 mb-3 text-zinc-500 group-hover:text-pink-500 transition-colors"></i>
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center">
+                                    <i data-lucide="cloud-upload" class="w-8 h-8 sm:w-10 sm:h-10 mb-3 text-zinc-500 group-hover:text-pink-500 transition-colors"></i>
                                     <p class="mb-2 text-sm text-zinc-400 font-bold" id="file-upload-text">點擊或拖曳檔案以上傳</p>
-                                    <p class="text-xs text-zinc-500">支援 PDF, DOCX, XLSX (上限 10MB)</p>
+                                    <p class="text-[10px] sm:text-xs text-zinc-500">支援 PDF, DOCX, XLSX (上限 10MB)</p>
                                 </div>
                                 <input id="file-upload" type="file" class="hidden" onchange="handleFileUpload(event)">
                             </label>
@@ -414,22 +426,18 @@
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         isCloudReady = true;
-                        // 設定雲端共用資料夾路徑
                         window.cloudDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'cloud_state', 'v1');
                         
-                        // 監聽雲端資料變更 (當其他設備上傳時自動更新)
                         onSnapshot(window.cloudDocRef, (docSnap) => {
                             if (docSnap.exists()) {
                                 const data = docSnap.data();
                                 let hasChanges = false;
                                 
-                                // 比對並同步：成績、檔案、待辦與班級打線
                                 if (data.matches && JSON.stringify(data.matches) !== JSON.stringify(state.matches)) { state.matches = data.matches; hasChanges = true; }
                                 if (data.files && JSON.stringify(data.files) !== JSON.stringify(state.files)) { state.files = data.files; hasChanges = true; }
                                 if (data.checklist && JSON.stringify(data.checklist) !== JSON.stringify(state.checklist)) { state.checklist = data.checklist; hasChanges = true; }
 
                                 if (hasChanges) {
-                                    // 記住當前輸入框焦點，防止自動刷新打斷老師打字
                                     const activeId = document.activeElement ? document.activeElement.id : null;
                                     
                                     renderSchedule();
@@ -438,7 +446,6 @@
                                     renderChecklist();
                                     renderAdminDashboard();
                                     
-                                    // 恢復焦點
                                     if (activeId) {
                                         const el = document.getElementById(activeId);
                                         if (el) el.focus();
@@ -453,19 +460,10 @@
             }
         }
 
-        // 本地與雲端雙重儲存引擎
         function saveStateToLocal() {
             try {
-                const dataObj = {
-                    matches: state.matches,
-                    files: state.files,
-                    checklist: state.checklist
-                };
-
-                // 1. 保留本地快取 (無網路時的安全網)
+                const dataObj = { matches: state.matches, files: state.files, checklist: state.checklist };
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(dataObj));
-
-                // 2. 自動推播至雲端
                 if (isCloudReady && window.cloudDb && window.cloudDocRef) {
                     window.cloudSetDoc(window.cloudDocRef, dataObj, { merge: true }).catch(e => console.error("雲端寫入失敗", e));
                 }
@@ -489,7 +487,6 @@
             } catch (e) { console.warn('LocalStorage parse failed. Safe mode engaged.', e); }
         }
 
-        // 提示訊息引擎
         let toastTimeout;
         function showToast(message) {
             try {
@@ -502,7 +499,6 @@
             } catch(e) {}
         }
 
-        // 切換頁籤邏輯
         function switchTab(tabId) {
             try {
                 state.activeTab = tabId;
@@ -524,7 +520,6 @@
             } catch(e) { console.error("Tab switch error", e); }
         }
 
-        // Modal 控制引擎
         function openAdminModal() { 
             const modal = document.getElementById('admin-login-modal');
             if(modal) { 
@@ -538,7 +533,6 @@
             if(modal) { modal.style.display = 'none'; document.body.classList.remove('modal-open'); }
         }
 
-        // ==================== UI 渲染引擎 ====================
         function renderGradeCards() {
             try {
                 const container = document.getElementById('grade-cards-container');
@@ -726,7 +720,6 @@
             } catch(e) { console.error('Render Schedule failed:', e); }
         }
 
-        // ==================== 打線安排邏輯 (防呆防抖) ====================
         function getGradeAlertData(grade) {
             switch(grade) {
                 case '3': return { text: "每半局 12-13 人打擊（下半局不重複）。兩局共計 24-26 棒次。", limit: 26 };
@@ -759,7 +752,6 @@
             showToast(`已下載範本 (共 ${limit} 棒)`);
         }
 
-        // 系統資料庫備份與還原功能
         function backupSystemData() {
             try {
                 const data = {
@@ -796,7 +788,6 @@
                     
                     saveStateToLocal();
                     
-                    // 強制重新渲染所有模組以套用還原資料
                     renderSchedule();
                     renderScoreboard();
                     renderFileList();
@@ -832,7 +823,6 @@
             } catch(e) { console.error('Render Admin failed', e); }
         }
 
-        /* --- 成績區邏輯 --- */
         function handleAdminAuth(e) {
             e.preventDefault();
             const input = document.getElementById('admin-passcode-input');
@@ -866,15 +856,14 @@
 
         function renderScoreboard() {
             try {
-                // 將鎖定狀態指定到賽程頁籤的標題旁
                 const sStatus = document.getElementById('schedule-admin-lock-status');
                 const wrapper = document.getElementById('scoreboard-wrapper');
                 
                 if (state.admin.isUnlocked) {
-                    if(sStatus) sStatus.innerHTML = `<span class="text-[10px] sm:text-xs font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center bg-green-500/10 shadow-inner"><i data-lucide="unlock" class="w-4 h-4 mr-2"></i> 已解鎖登錄權限</span>`;
+                    if(sStatus) sStatus.innerHTML = `<span class="text-[10px] sm:text-xs font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center bg-green-500/10 shadow-inner w-full justify-center sm:justify-start sm:w-auto"><i data-lucide="unlock" class="w-4 h-4 mr-2"></i> 已解鎖登錄權限</span>`;
                     if(wrapper) wrapper.classList.remove('hidden');
                 } else {
-                    if(sStatus) sStatus.innerHTML = `<button onclick="openAdminModal()" class="text-[10px] sm:text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center bg-zinc-800 hover:bg-zinc-700 transition-all shadow-md active:scale-95 group"><i data-lucide="lock" class="w-4 h-4 mr-2 text-pink-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
+                    if(sStatus) sStatus.innerHTML = `<button onclick="openAdminModal()" class="text-[10px] sm:text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center bg-zinc-800 hover:bg-zinc-700 transition-all shadow-md active:scale-95 group w-full justify-center sm:justify-start sm:w-auto"><i data-lucide="lock" class="w-4 h-4 mr-2 text-pink-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
                     if(wrapper) wrapper.classList.add('hidden');
                 }
 
@@ -892,17 +881,17 @@
                                 contentHtml = `
                                     <div class="flex items-center justify-between mt-2 bg-zinc-900/50 p-2 sm:p-3 rounded border border-zinc-800/50">
                                         <div class="text-base sm:text-lg font-black text-white flex-1 text-center tracking-wider">${m.teamA} <span class="text-pink-500 mx-2 sm:mx-3">${m.scoreA} : ${m.scoreB}</span> ${m.teamB}</div>
-                                        <button onclick="resetMatchScore('${m.id}')" class="ml-2 sm:ml-3 text-zinc-500 hover:text-red-400 bg-black p-1.5 sm:p-2 rounded border border-zinc-800 hover:border-red-500/50 transition-colors" title="刪除成績"><i data-lucide="trash-2" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                                        <button onclick="resetMatchScore('${m.id}')" class="ml-2 sm:ml-3 shrink-0 text-zinc-500 hover:text-red-400 bg-black p-1.5 sm:p-2 rounded border border-zinc-800 hover:border-red-500/50 transition-colors" title="刪除成績"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                                     </div>`;
                             } else {
                                 contentHtml = `
                                     <form onsubmit="submitScore(event, '${m.id}')" class="flex items-center justify-between mt-2 space-x-1 sm:space-x-2 bg-zinc-900/50 p-2 sm:p-3 rounded border border-zinc-800/50">
-                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-6 sm:w-10 text-right">${m.teamA}</span>
-                                        <input name="scoreA" type="number" min="0" required placeholder="分" class="w-10 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded py-1 sm:py-1.5 focus:border-pink-500 outline-none transition-colors">
+                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-8 sm:w-10 text-right">${m.teamA}</span>
+                                        <input name="scoreA" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-base rounded py-1.5 focus:border-pink-500 outline-none transition-colors appearance-none">
                                         <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic">vs</span>
-                                        <input name="scoreB" type="number" min="0" required placeholder="分" class="w-10 sm:w-14 bg-black border border-zinc-700 text-white text-center font-bold text-sm sm:text-base rounded py-1 sm:py-1.5 focus:border-pink-500 outline-none transition-colors">
-                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-6 sm:w-10">${m.teamB}</span>
-                                        <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-1.5 sm:p-2 rounded transition-transform active:scale-95 ml-1 sm:ml-2" title="儲存"><i data-lucide="save" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                                        <input name="scoreB" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-base rounded py-1.5 focus:border-pink-500 outline-none transition-colors appearance-none">
+                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-8 sm:w-10">${m.teamB}</span>
+                                        <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-2 rounded transition-transform active:scale-95 ml-1 sm:ml-2 shrink-0" title="儲存"><i data-lucide="save" class="w-4 h-4"></i></button>
                                     </form>`;
                             }
                         } else {
@@ -953,7 +942,6 @@
                 state.matches[matchIndex] = { ...state.matches[matchIndex], scoreA: sA, scoreB: sB, status: 'completed' };
                 saveStateToLocal(); 
                 renderScoreboard(); 
-                // 即時重新渲染成績與賽程區塊，保證使用者第一時間看見變化
                 renderSchedule();
                 showToast('比分發佈成功！已即時更新至賽程表。');
             }
@@ -1038,7 +1026,6 @@
         window.onload = () => {
             try { loadStateFromLocal(); } catch(e) { console.error('載入本地資料失敗', e); }
             
-            // 啟動雲端同步 (如果上方 Config 有設定的話)
             initCloudEngine();
             
             const renderQueue = [
@@ -1056,7 +1043,6 @@
 
             try { switchTab('rules'); } catch(e) {}
             
-            // 安全的 iframe 高度同步
             if (window.parent && window.parent !== window) {
                 setTimeout(() => {
                     try { window.parent.postMessage({ type: 'resize', height: document.body.scrollHeight }, '*'); } catch(e){}
@@ -1064,7 +1050,6 @@
             }
         };
 
-        // 安全地初始化 ResizeObserver
         try {
             const resizeObserver = new ResizeObserver(() => {
                  if (window.parent && window.parent !== window) {
