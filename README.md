@@ -126,11 +126,16 @@
                             <p class="text-[10px] sm:text-xs font-mono text-zinc-500 tracking-widest">114學年度班際體育競賽系統</p>
                         </div>
                     </div>
-                    <!-- 新增超連結按鈕 -->
-                    <div>
+                    <!-- 頂部超連結按鈕群 -->
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <a href="https://drive.google.com/file/d/1w3WT5IjYvBD6BNSiOQlogWvd-HwJUTkG/view?usp=sharing" target="_blank" class="flex items-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
+                            <i data-lucide="map" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs sm:text-sm font-bold tracking-widest hidden sm:inline">場地圖</span>
+                            <span class="text-xs font-bold sm:hidden">場地</span>
+                        </a>
                         <a href="https://drive.google.com/file/d/1GJLKIs04G4LRvf1omVmpTVhfwrC3nu7Z/view?usp=sharing" target="_blank" class="flex items-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
                             <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-                            <span class="text-xs sm:text-sm font-bold tracking-widest hidden sm:inline">大會總表下載</span>
+                            <span class="text-xs sm:text-sm font-bold tracking-widest hidden sm:inline">大會總表</span>
                             <span class="text-xs font-bold sm:hidden">總表</span>
                         </a>
                     </div>
