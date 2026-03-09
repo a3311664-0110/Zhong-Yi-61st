@@ -115,8 +115,8 @@
             </div>
             <form onsubmit="handleAdminAuth(event)" class="space-y-4">
                 <div>
-                    <!-- text-base on mobile prevents iOS zoom -->
-                    <input type="password" id="admin-passcode-input" class="w-full bg-black border border-zinc-800 rounded-md px-4 py-3 text-center text-white text-base sm:text-lg font-mono tracking-widest focus:outline-none focus:border-pink-500 transition-colors" placeholder="••••••" maxlength="6">
+                    <!-- text-base 防止 iOS 點擊輸入框時畫面放大跑版 -->
+                    <input type="password" id="admin-passcode-input" class="w-full bg-black border border-zinc-800 rounded-md px-4 py-3 text-center text-white text-base font-mono tracking-widest focus:outline-none focus:border-pink-500 transition-colors" placeholder="••••••" maxlength="6">
                     <p id="admin-auth-error" class="hidden text-red-500 text-xs text-center mt-2 font-bold">密碼錯誤，請重新輸入</p>
                 </div>
                 <button type="submit" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 rounded-md transition-all active:scale-95 tracking-widest">驗證解鎖</button>
@@ -125,48 +125,56 @@
     </div>
 
     <div id="main-container">
-        <!-- 標題區 -->
-        <header class="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-40">
+        <!-- 標題區塊重構：完美適應手機與電腦版 -->
+        <header class="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-40 shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- 調整 flex-wrap 確保小螢幕手機不會破版 -->
-                <div class="flex flex-wrap items-center justify-between py-3 sm:py-0 sm:h-20 gap-y-3">
+                
+                <!-- 上半部：標題與動作按鈕 -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between py-3 sm:py-0 sm:h-20 gap-3 sm:gap-0">
+                    
+                    <!-- Logo & 標題區 -->
                     <div class="flex items-center space-x-3 shrink-0">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-pink-500 to-pink-700 rounded-lg flex items-center justify-center shadow-lg transform -rotate-6">
-                            <i data-lucide="trophy" class="w-6 h-6 sm:w-7 sm:h-7 text-white"></i>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-pink-500 to-pink-700 rounded-xl flex items-center justify-center shadow-lg transform -rotate-6 shrink-0">
+                            <i data-lucide="trophy" class="w-5 h-5 sm:w-6 sm:h-6 text-white"></i>
                         </div>
-                        <div>
-                            <h1 class="text-lg sm:text-2xl font-black text-white tracking-wider">忠義國小樂樂棒<span class="text-pink-500 hidden sm:inline">賽事整合平台</span></h1>
-                            <p class="text-[10px] sm:text-xs font-mono text-zinc-500 tracking-widest">114學年度班際體育競賽系統</p>
+                        <div class="flex flex-col justify-center">
+                            <h1 class="text-lg sm:text-2xl font-black text-white tracking-wider leading-tight">
+                                忠義國小樂樂棒<span class="text-pink-500 hidden sm:inline">賽事整合平台</span>
+                            </h1>
+                            <p class="text-[10px] sm:text-xs font-mono text-zinc-500 tracking-widest mt-0.5">114學年度班際體育競賽系統</p>
                         </div>
                     </div>
-                    <!-- 頂部超連結按鈕群 -->
-                    <div class="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto justify-end">
-                        <a href="https://drive.google.com/file/d/1w3WT5IjYvBD6BNSiOQlogWvd-HwJUTkG/view?usp=sharing" target="_blank" class="flex-1 sm:flex-none flex items-center justify-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-2 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
-                            <i data-lucide="map" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                    
+                    <!-- 動作按鈕區 (手機版 50/50 均分並排，電腦版靠右並排) -->
+                    <div class="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:space-x-3 sm:w-auto">
+                        <a href="https://drive.google.com/file/d/1w3WT5IjYvBD6BNSiOQlogWvd-HwJUTkG/view?usp=sharing" target="_blank" class="flex items-center justify-center space-x-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all duration-300 shadow-sm active:scale-95 group">
+                            <i data-lucide="map" class="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform"></i>
                             <span class="text-xs sm:text-sm font-bold tracking-widest">場地圖</span>
                         </a>
-                        <a href="https://drive.google.com/file/d/1GJLKIs04G4LRvf1omVmpTVhfwrC3nu7Z/view?usp=sharing" target="_blank" class="flex-1 sm:flex-none flex items-center justify-center space-x-1 sm:space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 sm:px-4 py-2 sm:py-2 rounded-full transition-all duration-300 shadow-md group">
-                            <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                        <a href="https://drive.google.com/file/d/1GJLKIs04G4LRvf1omVmpTVhfwrC3nu7Z/view?usp=sharing" target="_blank" class="flex items-center justify-center space-x-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-pink-500 text-pink-400 px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all duration-300 shadow-sm active:scale-95 group">
+                            <i data-lucide="external-link" class="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform"></i>
                             <span class="text-xs sm:text-sm font-bold tracking-widest">大會總表</span>
                         </a>
                     </div>
                 </div>
                 
-                <!-- 頁籤導航 -->
-                <nav class="flex overflow-x-auto no-scrollbar -mb-px space-x-2 sm:space-x-8 mt-1 sm:mt-0">
-                    <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-pink-500 border-pink-500 bg-pink-500/10 text-xs sm:text-sm" data-target="rules" onclick="switchTab('rules')">
-                        <i data-lucide="book-open" class="w-4 h-4"></i><span>賽事規則</span>
-                    </button>
-                    <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm" data-target="lineup" onclick="switchTab('lineup')">
-                        <i data-lucide="users" class="w-4 h-4"></i><span>打線安排</span>
-                    </button>
-                    <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm" data-target="schedule" onclick="switchTab('schedule')">
-                        <i data-lucide="calendar" class="w-4 h-4"></i><span>賽程成績</span>
-                    </button>
-                    <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm" data-target="admin" id="tab-btn-admin" onclick="switchTab('admin')">
-                        <i data-lucide="settings" class="w-4 h-4"></i><span>後台管理</span>
-                    </button>
-                </nav>
+                <!-- 下半部：頁籤導航區 -->
+                <div class="relative w-full -mx-4 px-4 sm:mx-0 sm:px-0 border-t border-zinc-800/50 sm:border-none mt-1 sm:mt-0">
+                    <nav class="flex overflow-x-auto no-scrollbar space-x-1 sm:space-x-6 w-full relative">
+                        <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1.5 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-[3px] text-pink-500 border-pink-500 bg-pink-500/10 text-xs sm:text-sm" data-target="rules" onclick="switchTab('rules')">
+                            <i data-lucide="book-open" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i><span>賽事規則</span>
+                        </button>
+                        <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1.5 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-[3px] text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm" data-target="lineup" onclick="switchTab('lineup')">
+                            <i data-lucide="users" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i><span>打線安排</span>
+                        </button>
+                        <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1.5 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-[3px] text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm" data-target="schedule" onclick="switchTab('schedule')">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i><span>賽程成績</span>
+                        </button>
+                        <button class="tab-btn flex-shrink-0 flex items-center justify-center space-x-1.5 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-[3px] text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm" data-target="admin" id="tab-btn-admin" onclick="switchTab('admin')">
+                            <i data-lucide="settings" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i><span>後台管理</span>
+                        </button>
+                    </nav>
+                </div>
             </div>
         </header>
 
@@ -208,7 +216,6 @@
                         <div class="flex flex-col">
                             <label class="text-xs font-bold text-zinc-500 mb-1.5 uppercase tracking-wider pl-1">步驟一：選擇年級下載範本</label>
                             <div class="flex space-x-2">
-                                <!-- text-base sm:text-sm 防止 iOS 點擊 select 放大畫面 -->
                                 <select id="lineup-grade-select" class="bg-black border border-zinc-800 text-white text-base sm:text-sm rounded-md focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 sm:p-3 outline-none transition-colors">
                                     <option value="">-- 請選擇年級 --</option>
                                     <option value="3">三年級</option>
@@ -216,8 +223,8 @@
                                     <option value="5">五年級</option>
                                     <option value="6">六年級</option>
                                 </select>
-                                <button onclick="handleDownloadTemplate()" class="shrink-0 bg-zinc-800 hover:bg-zinc-700 text-white text-xs sm:text-sm font-bold px-4 rounded flex items-center justify-center transition-colors border border-zinc-700" title="下載該年級空白表格">
-                                    <i data-lucide="download" class="w-4 h-4 mr-1"></i>下載
+                                <button onclick="handleDownloadTemplate()" class="shrink-0 bg-zinc-800 hover:bg-zinc-700 text-white text-sm font-bold px-5 rounded flex items-center justify-center transition-colors border border-zinc-700" title="下載該年級空白表格">
+                                    <i data-lucide="download" class="w-4 h-4 mr-1.5"></i>下載
                                 </button>
                             </div>
                         </div>
@@ -266,8 +273,8 @@
 
                 <!-- 整合：成績公告與登錄面板 -->
                 <div class="mt-8 border-t-2 border-zinc-800 pt-8">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
-                        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center mb-4 sm:mb-0">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-y-4">
+                        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center">
                             <i data-lucide="megaphone" class="w-6 h-6 sm:w-8 sm:h-8 mr-3 text-pink-500"></i>成績公告與登錄
                         </h2>
                         <div id="schedule-admin-lock-status" class="w-full sm:w-auto"></div>
@@ -502,14 +509,16 @@
         function switchTab(tabId) {
             try {
                 state.activeTab = tabId;
+                const baseClass = 'tab-btn flex-shrink-0 flex items-center justify-center space-x-1.5 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-[3px] text-xs sm:text-sm ';
+                
                 document.querySelectorAll('.tab-btn').forEach(btn => {
                     if (btn.dataset.target === tabId) {
-                        btn.className = 'tab-btn flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-pink-500 border-pink-500 bg-pink-500/10 text-xs sm:text-sm';
+                        btn.className = baseClass + 'text-pink-500 border-pink-500 bg-pink-500/10';
                         if (btn.scrollIntoView) {
                            try { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } catch(e){}
                         }
                     } else {
-                        btn.className = 'tab-btn flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-4 sm:px-6 py-3 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm';
+                        btn.className = baseClass + 'text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900';
                     }
                 });
                 document.querySelectorAll('.tab-content').forEach(content => { content.classList.remove('active'); });
@@ -593,7 +602,7 @@
                 const cards = [
                     {
                         grade: '中年級 (三、四年級)', badge: '推進得分制', ill: createScoringIll('middle'), chart: createBattingChart('continuous'),
-                        rules: ["兩局制（分上下半局）。猜拳勝隊選擇攻守先後。", "打線（三年級）：每半局 12-13 人打擊（下半局人員不重複）。打擊之兩半局共計24-26棒次。", "打線（四年級）：每半局 10-12 人打擊（下半局人員不重複）。打擊之兩半局共計20-24棒次。", "防守：固定派守備 9 人（每局結束後可換人）。", "限制：球擊出後，投手位置防守員才能越過投手板。違規重新打擊。"]
+                        rules: ["兩局制（分上下半局）。猜拳勝隊選擇攻守先後。", "打線（三年級）：每半局 12-13 人打擊（下半局人員不重複）。打擊之兩半局共計24-26棒次。", "打線（四年級）：每半局 10-12 人打擊（下半局人員不重複）。打擊之兩半局共計20-24棒次。", "防守：固定派守備 9 分（每局結束後可換人）。", "限制：球擊出後，投手位置防守員才能越過投手板。違規重新打擊。"]
                     },
                     {
                         grade: '五年級專屬', badge: '本壘得分制', ill: createScoringIll('high'), chart: createBattingChart('continuous'),
@@ -634,7 +643,7 @@
                 container.innerHTML = items.map(item => {
                     const isChecked = state.checklist[item.id];
                     return `
-                        <div class="flex items-start space-x-3 sm:space-x-4 group cursor-pointer transition-all duration-300 p-2 sm:p-3 rounded-lg hover:bg-zinc-800/30 border border-transparent ${isChecked ? 'border-zinc-800 bg-black/30' : ''}" onclick="toggleChecklistItem('${item.id}')">
+                        <div class="flex items-start space-x-3 sm:space-x-4 group cursor-pointer transition-all duration-300 p-3 sm:p-3 rounded-lg hover:bg-zinc-800/30 border border-transparent ${isChecked ? 'border-zinc-800 bg-black/30' : ''}" onclick="toggleChecklistItem('${item.id}')">
                             <div class="mt-1 shrink-0">
                                 <div class="w-8 h-8 sm:w-10 sm:h-10 border-2 rounded-md flex items-center justify-center transition-all duration-300 transform ${isChecked ? 'bg-pink-500 border-pink-500 scale-105 sm:scale-110' : 'border-zinc-600 group-hover:border-pink-500 group-hover:bg-pink-500/10'}">
                                     <div class="transition-colors duration-300 ${isChecked ? 'text-white' : 'text-zinc-500 group-hover:text-pink-500'}">
@@ -679,12 +688,12 @@
                     const bWon = isCompleted && scoreB > scoreA;
 
                     const scoreHtml = isCompleted ? `
-                        <div class="flex items-center space-x-1 sm:space-x-2 font-black text-lg sm:text-xl px-2 sm:px-0">
+                        <div class="flex items-center space-x-1 sm:space-x-2 font-black text-lg sm:text-xl px-2 sm:px-0 z-10 relative">
                             <span class="${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreA}</span>
                             <span class="text-zinc-600 text-xs sm:text-sm pb-1">-</span>
                             <span class="${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-400' : 'text-white')}">${m.scoreB}</span>
                         </div>
-                    ` : `<span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase mx-2 px-2 sm:px-0">vs</span>`;
+                    ` : `<span class="text-zinc-600 text-[10px] sm:text-xs font-black italic uppercase mx-2 px-2 sm:px-0 z-10 relative">vs</span>`;
 
                     return `
                         <li class="flex flex-col sm:flex-row sm:items-center justify-between bg-black p-3 sm:p-4 border transition-all duration-300 group cursor-default relative overflow-hidden rounded-md ${isCompleted ? 'border-pink-500/30' : 'border-zinc-800 hover:border-pink-500/50'}">
@@ -696,12 +705,12 @@
                                 <div class="text-pink-500 font-bold text-[9px] sm:text-xs border border-pink-500/30 px-1.5 sm:px-2 py-0.5 rounded-sm uppercase tracking-wider">${m.match}</div>
                             </div>
                             <div class="flex items-center justify-center space-x-2 sm:space-x-4 px-2 sm:px-4 py-1.5 sm:py-2 rounded-sm border transition-colors relative z-10 w-full sm:w-auto ${isCompleted ? 'bg-zinc-900/80 border-zinc-700' : 'bg-zinc-900/50 border-zinc-800/50 group-hover:border-pink-500/30'}">
-                                <span class="w-8 sm:w-10 text-right font-black text-base sm:text-xl tracking-wider ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamA}</span>
+                                <span class="w-8 sm:w-10 text-right font-black text-base sm:text-xl tracking-wider z-10 relative ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamA}</span>
                                 ${scoreHtml}
-                                <span class="w-8 sm:w-10 text-left font-black text-base sm:text-xl tracking-wider ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamB}</span>
+                                <span class="w-8 sm:w-10 text-left font-black text-base sm:text-xl tracking-wider z-10 relative ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamB}</span>
                             </div>
-                            ${isCompleted && !isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/5 to-transparent opacity-50"></div>' : ''}
-                            ${isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-500/10 to-transparent opacity-50"></div>' : ''}
+                            ${isCompleted && !isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/5 to-transparent opacity-50 z-0 pointer-events-none"></div>' : ''}
+                            ${isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-500/10 to-transparent opacity-50 z-0 pointer-events-none"></div>' : ''}
                         </li>
                     `;
                 };
@@ -811,11 +820,11 @@
                 const lockedMsg = document.getElementById('admin-locked-message');
                 
                 if (state.admin.isUnlocked) {
-                    if(lockStatus) lockStatus.innerHTML = `<span class="text-[10px] sm:text-xs font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center bg-green-500/10 shadow-inner"><i data-lucide="unlock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> 已解鎖最高權限</span>`;
+                    if(lockStatus) lockStatus.innerHTML = `<span class="text-[10px] sm:text-xs font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center bg-green-500/10 shadow-inner w-fit"><i data-lucide="unlock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> 已解鎖最高權限</span>`;
                     if(content) content.classList.remove('hidden');
                     if(lockedMsg) lockedMsg.classList.add('hidden');
                 } else {
-                    if(lockStatus) lockStatus.innerHTML = `<button onclick="openAdminModal()" class="text-[10px] sm:text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-green-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center bg-zinc-800 hover:bg-zinc-700 transition-all shadow-md active:scale-95 group"><i data-lucide="lock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-green-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
+                    if(lockStatus) lockStatus.innerHTML = `<button onclick="openAdminModal()" class="text-[10px] sm:text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-green-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center bg-zinc-800 hover:bg-zinc-700 transition-all shadow-md active:scale-95 group w-fit"><i data-lucide="lock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-green-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
                     if(content) content.classList.add('hidden');
                     if(lockedMsg) lockedMsg.classList.remove('hidden');
                 }
@@ -860,10 +869,10 @@
                 const wrapper = document.getElementById('scoreboard-wrapper');
                 
                 if (state.admin.isUnlocked) {
-                    if(sStatus) sStatus.innerHTML = `<span class="text-[10px] sm:text-xs font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center bg-green-500/10 shadow-inner w-full justify-center sm:justify-start sm:w-auto"><i data-lucide="unlock" class="w-4 h-4 mr-2"></i> 已解鎖登錄權限</span>`;
+                    if(sStatus) sStatus.innerHTML = `<span class="text-[10px] sm:text-xs font-bold text-green-400 border border-green-500/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md flex items-center justify-center sm:justify-start bg-green-500/10 shadow-inner w-full sm:w-auto"><i data-lucide="unlock" class="w-4 h-4 mr-2"></i> 已解鎖登錄權限</span>`;
                     if(wrapper) wrapper.classList.remove('hidden');
                 } else {
-                    if(sStatus) sStatus.innerHTML = `<button onclick="openAdminModal()" class="text-[10px] sm:text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center bg-zinc-800 hover:bg-zinc-700 transition-all shadow-md active:scale-95 group w-full justify-center sm:justify-start sm:w-auto"><i data-lucide="lock" class="w-4 h-4 mr-2 text-pink-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
+                    if(sStatus) sStatus.innerHTML = `<button onclick="openAdminModal()" class="text-[10px] sm:text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500 px-3 sm:px-5 py-2 sm:py-2.5 rounded-md flex items-center justify-center sm:justify-start bg-zinc-800 hover:bg-zinc-700 transition-all shadow-md active:scale-95 group w-full sm:w-auto"><i data-lucide="lock" class="w-4 h-4 mr-2 text-pink-500 group-hover:scale-110 transition-transform"></i> 管理員解鎖</button>`;
                     if(wrapper) wrapper.classList.add('hidden');
                 }
 
@@ -999,15 +1008,15 @@
                     container.innerHTML = currentFiles.map(f => `
                         <div class="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-zinc-800/80 transition-all duration-300 group">
                             <div class="flex items-center space-x-3 sm:space-x-5 mb-3 sm:mb-0">
-                                <div class="p-3 sm:p-4 bg-black border border-zinc-800 text-pink-500 rounded-lg group-hover:scale-110 group-hover:border-pink-500/50 transition-all duration-300 shadow-inner">
+                                <div class="p-3 sm:p-4 bg-black border border-zinc-800 text-pink-500 rounded-lg group-hover:scale-110 group-hover:border-pink-500/50 transition-all duration-300 shadow-inner shrink-0">
                                     <i data-lucide="file-text" class="w-5 h-5 sm:w-7 sm:h-7"></i>
                                 </div>
-                                <div>
+                                <div class="min-w-0">
                                     <h4 class="text-base sm:text-lg font-black text-white group-hover:text-pink-400 transition-colors break-all line-clamp-1">${f.name}</h4>
                                     <p class="text-xs sm:text-sm text-zinc-500 font-mono mt-0.5 sm:mt-1 flex items-center"><i data-lucide="calendar-days" class="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5"></i>發佈: ${f.date}</p>
                                 </div>
                             </div>
-                            <button class="w-full sm:w-auto text-zinc-400 hover:text-white transition-colors px-4 sm:px-6 py-2 sm:py-3 border border-zinc-700 hover:border-pink-500 hover:bg-pink-600 uppercase text-[10px] sm:text-xs font-black tracking-widest rounded-sm transform hover:-translate-y-0.5 shadow-md">下載</button>
+                            <button class="w-full sm:w-auto text-zinc-400 hover:text-white transition-colors px-4 sm:px-6 py-2 sm:py-3 border border-zinc-700 hover:border-pink-500 hover:bg-pink-600 uppercase text-[10px] sm:text-xs font-black tracking-widest rounded-sm transform hover:-translate-y-0.5 shadow-md shrink-0">下載</button>
                         </div>
                     `).join('');
                 }
