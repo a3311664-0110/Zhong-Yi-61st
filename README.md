@@ -249,19 +249,26 @@
 
             <!-- ==================== 賽程總覽 Tab ==================== -->
             <div id="tab-schedule" class="tab-content space-y-8 sm:space-y-12">
-                <div class="bg-zinc-900 border border-zinc-800 p-4 sm:p-8 relative overflow-hidden rounded-xl shadow-xl">
-                    <div class="absolute right-0 top-0 w-48 sm:w-64 h-48 sm:h-64 bg-pink-500/5 transform rotate-12 translate-x-24 sm:translate-x-32 -translate-y-24 sm:-translate-y-32 pointer-events-none"></div>
-                    <h3 class="text-xl sm:text-2xl font-black text-white mb-6 sm:mb-8 tracking-wide flex items-center border-b border-zinc-800 pb-4">
-                        <i data-lucide="calendar-days" class="text-pink-500 mr-2 sm:mr-3 w-6 h-6 sm:w-7 sm:h-7"></i>單循環賽程總覽
-                    </h3>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-12 relative z-10" id="schedule-container">
+                <div class="bg-zinc-900/60 border border-zinc-800 p-4 sm:p-8 md:p-10 relative overflow-hidden rounded-2xl shadow-2xl">
+                    <!-- 電競風格光暈背景 -->
+                    <div class="absolute right-0 top-0 w-64 sm:w-96 h-64 sm:h-96 bg-pink-500/10 transform rotate-12 translate-x-24 sm:translate-x-32 -translate-y-24 sm:-translate-y-32 pointer-events-none rounded-full blur-3xl"></div>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 border-b border-zinc-800 pb-4 sm:pb-6 relative z-10">
+                        <h3 class="text-2xl sm:text-4xl font-black text-white tracking-widest flex items-center uppercase drop-shadow-lg">
+                            <i data-lucide="trophy" class="text-pink-500 mr-3 sm:mr-4 w-8 h-8 sm:w-10 sm:h-10 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]"></i>
+                            單循環賽程總覽
+                        </h3>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-12 sm:space-y-16 relative z-10 w-full" id="schedule-container">
                         <!-- JS Render -->
                     </div>
-                    <div class="mt-8 sm:mt-12 p-4 sm:p-5 bg-zinc-800/60 border-l-4 border-pink-500 text-xs sm:text-sm text-zinc-300 relative overflow-hidden rounded-r-lg">
-                        <strong class="text-white text-sm sm:text-base flex items-center mb-2"><i data-lucide="alert-triangle" class="w-4 h-4 text-pink-500 mr-2"></i>雨備延賽資訊：</strong>
-                        <ul class="space-y-1.5 ml-4 sm:ml-6 list-disc list-outside marker:text-pink-500">
-                            <li>中年級如遇雨天，則延至 <span class="text-white font-bold bg-black/50 px-1 rounded">5/6(三) - 5/07(四)、5/12(二)</span>。</li>
-                            <li>高年級如遇雨天，則延至 <span class="text-white font-bold bg-black/50 px-1 rounded">5/13(三) - 5/15(五)</span>。</li>
+                    
+                    <div class="mt-12 sm:mt-16 p-4 sm:p-6 bg-zinc-950/80 border-l-4 border-pink-500 text-xs sm:text-sm text-zinc-300 relative overflow-hidden rounded-r-xl shadow-lg">
+                        <strong class="text-white text-sm sm:text-base flex items-center mb-2 tracking-wide"><i data-lucide="cloud-rain" class="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 mr-2"></i>雨備延賽資訊：</strong>
+                        <ul class="space-y-2 ml-6 sm:ml-8 list-disc list-outside marker:text-pink-500 font-medium">
+                            <li>中年級如遇雨天，則延至 <span class="text-white font-bold bg-zinc-800 px-1.5 py-0.5 rounded shadow-inner">5/6(三) - 5/07(四)、5/12(二)</span>。</li>
+                            <li>高年級如遇雨天，則延至 <span class="text-white font-bold bg-zinc-800 px-1.5 py-0.5 rounded shadow-inner">5/13(三) - 5/15(五)</span>。</li>
                         </ul>
                     </div>
                 </div>
@@ -284,9 +291,9 @@
                                 <span class="bg-zinc-800 text-pink-400 px-2 py-1 text-xs sm:text-sm rounded border border-zinc-700">三、四、五年級</span>接續打擊制
                             </h4>
                             <p class="text-zinc-300 leading-relaxed text-xs sm:text-sm md:text-base">
-                                上下半局的打擊人員 <span class="text-pink-400 font-bold border-b border-pink-500">完全不重複</span>。<br><br>
-                                <span class="text-zinc-400 block p-3 bg-zinc-900 rounded-md border border-zinc-800">💡 若每局排定 12 人，上半局 1~12 棒，<strong class="text-white">下半局必須由第 13 棒接續打擊</strong>（13~24棒）。</span><br>
-                                <strong class="text-pink-500 font-bold flex items-center mt-3 bg-pink-950/30 p-2 rounded"><i data-lucide="shield" class="w-4 h-4 mr-2"></i> 五年級防守：由該局攻擊者選派 9 人。</strong>
+                                兩個半局的打擊人員 <span class="text-pink-400 font-bold border-b border-pink-500">絕對不可重複</span>。<br><br>
+                                <span class="text-zinc-400 block p-3 bg-zinc-900 rounded-md border border-zinc-800">💡 若每半局排定 12 人，第一半局為 1~12 棒，<strong class="text-white">第二半局必須由第 13 棒接續打擊</strong>（13~24棒）。</span><br>
+                                <strong class="text-pink-500 font-bold flex items-center mt-3 bg-pink-950/30 p-2 rounded"><i data-lucide="shield" class="w-4 h-4 mr-2"></i> 五年級防守：由該半局攻擊者中選派 9 人。</strong>
                             </p>
                         </div>
                         <div class="bg-black/60 p-5 rounded-lg border border-zinc-700/50 hover:border-pink-500/50 transition-colors">
@@ -294,9 +301,9 @@
                                 <span class="bg-zinc-800 text-pink-400 px-2 py-1 text-xs sm:text-sm rounded border border-zinc-700">六年級限定</span>循環打擊制
                             </h4>
                             <p class="text-zinc-300 leading-relaxed text-xs sm:text-sm md:text-base">
-                                每人皆打擊兩次。第一與第二局的打擊人員與順序 <span class="text-pink-400 font-bold border-b border-pink-500">完全相同</span>。<br><br>
-                                <span class="text-zinc-400 block p-3 bg-zinc-900 rounded-md border border-zinc-800">💡 上半局第 1~16 棒打完後，下半局同樣由第 1~16 棒再次依照原順序上場。</span><br>
-                                <strong class="text-pink-500 font-bold flex items-center mt-3 bg-pink-950/30 p-2 rounded"><i data-lucide="shield" class="w-4 h-4 mr-2"></i> 六年級防守：固定 9 人，首局不得換人。</strong>
+                                每半局 16-18 人打擊，每人皆打擊兩次（<span class="text-pink-400 font-bold border-b border-pink-500">第一、第二半局打線相同</span>）。<br><br>
+                                <span class="text-zinc-400 block p-3 bg-zinc-900 rounded-md border border-zinc-800">💡 第一半局第 1~16 棒打完後，第二半局同樣由第 1~16 棒再次依照原順序上場。</span><br>
+                                <strong class="text-pink-500 font-bold flex items-center mt-3 bg-pink-950/30 p-2 rounded"><i data-lucide="shield" class="w-4 h-4 mr-2"></i> 六年級防守：固定 9 人，首半局不得換人。</strong>
                             </p>
                         </div>
                     </div>
@@ -471,7 +478,7 @@
         <button class="absolute top-4 sm:top-6 right-4 sm:right-6 text-zinc-400 hover:text-white bg-zinc-900/50 hover:bg-pink-600 p-2 sm:p-3 rounded-full transition-colors z-[70] shadow-lg" onclick="event.stopPropagation(); closeImageModal()">
             <i data-lucide="x" class="w-5 h-5 sm:w-7 sm:h-7"></i>
         </button>
-        <img src="https://lh3.googleusercontent.com/d/1w3WT5IjYvBD6BNSiOQlogWvd-HwJUTkG" alt="樂樂棒球宣傳圖 (放大)" class="max-w-[95%] max-h-[90vh] object-contain shadow-2xl ring-1 ring-zinc-800 rounded-lg animate-[fadeIn_0.3s_ease-out]" onclick="event.stopPropagation()">
+        <img src="https://lh3.googleusercontent.com/d/1w3WT5IjYvBD6BNSiOQlogWvd-HwJUTkG" alt="樂樂棒宣傳圖 (放大)" class="max-w-[95%] max-h-[90vh] object-contain shadow-2xl ring-1 ring-zinc-800 rounded-lg animate-[fadeIn_0.3s_ease-out]" onclick="event.stopPropagation()">
     </div>
 
     <!-- 管理員登入 Modal -->
@@ -506,7 +513,7 @@
     <script>
         lucide.createIcons();
 
-        // MIT 防護：防止 XSS 注入攻擊
+        // MIT 防護：防止 XSS 注入攻擊 (O(1) String Replace)
         const escapeHTML = (str) => {
             if (!str) return '';
             return str.toString().replace(/[&<>'"]/g, 
@@ -607,6 +614,7 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 if (btn.dataset.target === tabId) {
                     btn.className = 'tab-btn snap-start flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-5 sm:px-6 py-3.5 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-pink-500 border-pink-500 bg-pink-500/10 text-xs sm:text-sm';
+                    // Scroll active tab into view on mobile
                     btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 } else {
                     btn.className = 'tab-btn snap-start flex-shrink-0 flex items-center justify-center space-x-1 sm:space-x-2 px-5 sm:px-6 py-3.5 sm:py-4 font-bold tracking-widest uppercase transition-all whitespace-nowrap border-b-2 text-zinc-400 border-transparent hover:text-zinc-200 hover:bg-zinc-900 text-xs sm:text-sm';
@@ -624,7 +632,7 @@
         function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; document.getElementById('admin-passcode-input').focus(); document.body.classList.add('modal-open'); }
         function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; document.body.classList.remove('modal-open'); }
 
-        /* --- 靜態內容渲染 --- */
+        /* --- 靜態內容渲染 (只在 Load 執行一次) --- */
         function renderGradeCards() {
             const container = document.getElementById('grade-cards-container');
             const createScoringIll = (type) => {
@@ -659,10 +667,10 @@
                 <div class="mt-4 sm:mt-6 bg-black border border-zinc-700 rounded-lg overflow-hidden shadow-lg">
                     <div class="bg-zinc-800/90 text-[10px] sm:text-xs font-bold text-center py-1.5 sm:py-2 text-pink-400 tracking-widest border-b border-zinc-700">棒次安排圖解 (${type === 'continuous' ? '接續打擊制' : '循環打擊制'})</div>
                     <div class="flex divide-x divide-zinc-700 text-center">
-                        <div class="flex-1 p-2 sm:p-4"><div class="text-[9px] sm:text-[10px] text-zinc-500 mb-1.5 font-black tracking-widest">第一局攻擊</div><div class="font-mono text-xs sm:text-sm text-white font-bold bg-zinc-900 py-1.5 rounded border border-zinc-800 shadow-inner">1 ~ N 棒</div></div>
-                        <div class="flex-1 p-2 sm:p-4"><div class="text-[9px] sm:text-[10px] text-zinc-500 mb-1.5 font-black tracking-widest">第二局攻擊</div><div class="font-mono text-xs sm:text-[13px] text-pink-400 font-bold bg-zinc-900 py-1.5 rounded border border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.1)]">${type === 'continuous' ? '(N+1)棒 起接續' : '1 ~ N 棒(重複)'}</div></div>
+                        <div class="flex-1 p-2 sm:p-4"><div class="text-[9px] sm:text-[10px] text-zinc-500 mb-1.5 font-black tracking-widest">第一半局攻擊</div><div class="font-mono text-xs sm:text-sm text-white font-bold bg-zinc-900 py-1.5 rounded border border-zinc-800 shadow-inner">1 ~ N 棒</div></div>
+                        <div class="flex-1 p-2 sm:p-4"><div class="text-[9px] sm:text-[10px] text-zinc-500 mb-1.5 font-black tracking-widest">第二半局攻擊</div><div class="font-mono text-xs sm:text-[13px] text-pink-400 font-bold bg-zinc-900 py-1.5 rounded border border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.1)]">${type === 'continuous' ? '(N+1)棒 起接續' : '1 ~ N 棒(重複)'}</div></div>
                     </div>
-                    <div class="bg-zinc-900/80 p-2 sm:p-2.5 text-[9px] sm:text-[10px] text-zinc-400 text-center border-t border-zinc-700/50">${type === 'continuous' ? '⚠️ 上下半局打擊人員絕對不可重複' : '⚠️ 循環打擊制：上下半局打線完全相同'}</div>
+                    <div class="bg-zinc-900/80 p-2 sm:p-2.5 text-[9px] sm:text-[10px] text-zinc-400 text-center border-t border-zinc-700/50">${type === 'continuous' ? '⚠️ 兩個半局打擊人員絕對不可重複' : '⚠️ 循環打擊制：第一、第二半局打線完全相同'}</div>
                 </div>`;
 
             const formatRule = (rule) => {
@@ -677,9 +685,9 @@
             };
 
             const cards = [
-                { grade: '中年級 (三、四年級)', badge: '推進得分制', ill: createScoringIll('middle'), chart: createBattingChart('continuous'), rules: ["兩局制（分上下半局）。猜拳勝隊選擇攻守先後。", "打線（三年級）：每半局 12-13 人打擊（下半局人員不重複）。兩局共計24-26棒次。", "打線（四年級）：每半局 10-12 人打擊（下半局人員不重複）。兩局共計20-24棒次。", "防守：固定派守備 9 人（每局結束後可換人）。", "限制：球擊出後，投手位置防守員才能越過投手板。違規重新打擊。"] },
-                { grade: '五年級專屬', badge: '本壘得分制', ill: createScoringIll('high'), chart: createBattingChart('continuous'), rules: ["兩局制（分上下半局）。", "打線：每半局 13-14 人打擊（下半局人員不重複）。打擊之兩半局共計26-28棒次。", "防守：必須由該局參與打擊的 13-14 位選手中，選派 9 人進行防守。", "死球狀態：內野手控制球傳回投手/本壘即死球。", "殘壘延續：半局結束時之殘壘，於下一個打擊半局回到原壘包上。", "平手裁決：1. 比較殘壘數（多者勝） 2. 比較壘包與本壘距離（近者勝）。"] },
-                { grade: '六年級專屬', badge: '本壘得分制', ill: createScoringIll('high'), chart: createBattingChart('loop'), rules: ["兩局制（分上下半局）。", "打線：每半局 16-18 人打擊，每人皆打擊兩次（上下半局打線相同）。", "防守：固定 9 位防守人員。第二局開始後方可進行換人。", "死球狀態：內野手控制球傳回投手/本壘即死球。", "殘壘延續：半局結束時之殘壘，於下一個打擊半局回到原壘包上。", "平手裁決：1. 比較殘壘數（多者勝） 2. 比較壘包與本壘距離（近者勝）。"] }
+                { grade: '中年級 (三、四年級)', badge: '推進得分制', ill: createScoringIll('middle'), chart: createBattingChart('continuous'), rules: ["兩局制（分上下半局）。猜拳勝隊選擇攻守先後。", "打線（三年級）：每半局 12-13 人打擊（下半局人員不重複）。兩個半局共計 24-26 棒次。", "打線（四年級）：每半局 10-12 人打擊（下半局人員不重複）。兩個半局共計 20-24 棒次。", "防守：固定派守備 9 人（每局結束後可換人）。", "限制：球擊出後，投手位置防守員才能越過投手板。違規重新打擊。"] },
+                { grade: '五年級專屬', badge: '本壘得分制', ill: createScoringIll('high'), chart: createBattingChart('continuous'), rules: ["兩局制（分上下半局）。", "打線：每半局 13-14 人打擊（下半局人員不重複）。兩個半局共計 26-28 棒次。", "防守：必須由該半局參與打擊的 13-14 位選手中，選派 9 人進行防守。", "死球狀態：內野手控制球傳回投手/本壘即死球。", "殘壘延續：半局結束時之殘壘，於下一個打擊半局回到原壘包上。", "平手裁決：1. 比較殘壘數（多者勝） 2. 比較壘包與本壘距離（近者勝）。"] },
+                { grade: '六年級專屬', badge: '本壘得分制', ill: createScoringIll('high'), chart: createBattingChart('loop'), rules: ["兩局制（分上下半局）。", "打線：每半局 16-18 人打擊，每人皆打擊兩次（第一、第二半局打線相同）。", "防守：固定 9 位防守人員。第二局開始後方可進行換人。", "死球狀態：內野手控制球傳回投手/本壘即死球。", "殘壘延續：半局結束時之殘壘，於下一個打擊半局回到原壘包上。", "平手裁決：1. 比較殘壘數（多者勝） 2. 比較壘包與本壘距離（近者勝）。"] }
             ];
 
             container.innerHTML = cards.map(c => `
@@ -726,20 +734,21 @@
             if(state.activeTab === 'tactics') lucide.createIcons();
         }
 
-        function toggleChecklistItem(id) {
+        // define toggleChecklistItem in global scope so onclick can find it
+        window.toggleChecklistItem = function(id) {
             state.checklist[id] = !state.checklist[id];
             saveStateToLocal();
             renderChecklist();
         }
 
-        /* --- 賽程表渲染 (Grid 佈局，完美防截斷) --- */
+        /* --- 賽程表渲染 --- */
         function renderSchedule() {
             const container = document.getElementById('schedule-container');
             const groups = [
-                { grade: '3', title: '三年級', classes: '301, 302, 303' },
-                { grade: '4', title: '四年級', classes: '401, 402, 403' },
-                { grade: '5', title: '五年級', classes: '501, 502, 503' },
-                { grade: '6', title: '六年級', classes: '601, 602, 603' }
+                { grade: '3', title: '三年級預賽', classes: '301, 302, 303' },
+                { grade: '4', title: '四年級預賽', classes: '401, 402, 403' },
+                { grade: '5', title: '五年級預賽', classes: '501, 502, 503' },
+                { grade: '6', title: '六年級預賽', classes: '601, 602, 603' }
             ];
 
             container.innerHTML = groups.map(g => {
@@ -800,7 +809,7 @@
                 case '3': return { text: "每半局 12-13 人打擊（不重複）。共計 24-26 棒次。", limit: 26 };
                 case '4': return { text: "每半局 10-12 人打擊（不重複）。共計 20-24 棒次。", limit: 24 };
                 case '5': return { text: "每半局 13-14 人打擊（不重複）。須選派 9 人防守。", limit: 30 };
-                case '6': return { text: "每半局 16-18 人打擊。循環打擊制（上下半局完全相同）。", limit: 19 };
+                case '6': return { text: "每半局 16-18 人打擊，每人皆打擊兩次（第一、第二半局打線相同）。", limit: 19 };
                 default: return { text: "請先選擇年級以查看排棒限制。", limit: 19 };
             }
         }
@@ -949,7 +958,7 @@
                 html += `
                     <tr id="lineup-row-${i}" class="lineup-row transition-colors group hover:bg-zinc-800/60 ${isHalfStart ? 'border-t-[3px] sm:border-t-4 border-pink-500/60' : ''}">
                         <td class="py-2 sm:py-3 px-2 sm:px-5 relative text-center">
-                            ${isHalfStart ? '<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-pink-600 text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded shadow-md whitespace-nowrap z-10">下半局</div>' : ''}
+                            ${isHalfStart ? '<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-pink-600 text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded shadow-md whitespace-nowrap z-10">第二半局</div>' : ''}
                             <span id="lineup-badge-${i}" class="lineup-badge inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full border font-mono text-[11px] sm:text-xs font-bold transition-colors bg-zinc-900 border-zinc-700 text-zinc-400 group-hover:border-pink-500 group-hover:text-pink-400 group-hover:bg-zinc-800 shadow-inner">${i + 1}</span>
                         </td>
                         <td class="py-1.5 sm:py-2 px-1.5 sm:px-4"><input type="text" id="lineup-input-num-${i}" placeholder="座號" value="${escapeHTML(player.number)}" oninput="handleLineupInput(${i}, 'number', this)" class="lineup-number-input w-full px-2.5 sm:px-3 py-2 sm:py-2.5 text-white font-mono text-sm sm:text-base transition-colors focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 bg-zinc-950 border border-zinc-800 focus:bg-black hover:border-zinc-600 rounded-md shadow-inner" ${disabledStr}></td>
@@ -1086,7 +1095,6 @@
             updateLineupUIState(); showToast(`${state.lineup.cls} 班打擊順序已儲存`);
         }
 
-        /* --- 成績區邏輯 (Grid 排版) --- */
         function handleAdminAuth(e) {
             e.preventDefault();
             const input = document.getElementById('admin-passcode-input');
