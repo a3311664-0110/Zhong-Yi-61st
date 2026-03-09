@@ -705,9 +705,9 @@
                                 <div class="text-pink-500 font-bold text-[9px] sm:text-xs border border-pink-500/30 px-1.5 sm:px-2 py-0.5 rounded-sm uppercase tracking-wider">${m.match}</div>
                             </div>
                             <div class="flex items-center justify-center space-x-2 sm:space-x-4 px-2 sm:px-4 py-1.5 sm:py-2 rounded-sm border transition-colors relative z-10 w-full sm:w-auto ${isCompleted ? 'bg-zinc-900/80 border-zinc-700' : 'bg-zinc-900/50 border-zinc-800/50 group-hover:border-pink-500/30'}">
-                                <span class="w-8 sm:w-10 text-right font-black text-base sm:text-xl tracking-wider z-10 relative ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamA}</span>
+                                <span class="w-10 sm:w-12 whitespace-nowrap text-right font-black text-base sm:text-xl tracking-wider z-10 relative ${aWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamA}</span>
                                 ${scoreHtml}
-                                <span class="w-8 sm:w-10 text-left font-black text-base sm:text-xl tracking-wider z-10 relative ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamB}</span>
+                                <span class="w-10 sm:w-12 whitespace-nowrap text-left font-black text-base sm:text-xl tracking-wider z-10 relative ${bWon ? 'text-pink-400' : (isTie ? 'text-zinc-300' : 'text-white')}">${m.teamB}</span>
                             </div>
                             ${isCompleted && !isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/5 to-transparent opacity-50 z-0 pointer-events-none"></div>' : ''}
                             ${isTie ? '<div class="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-500/10 to-transparent opacity-50 z-0 pointer-events-none"></div>' : ''}
@@ -895,11 +895,11 @@
                             } else {
                                 contentHtml = `
                                     <form onsubmit="submitScore(event, '${m.id}')" class="flex items-center justify-between mt-2 space-x-1 sm:space-x-2 bg-zinc-900/50 p-2 sm:p-3 rounded border border-zinc-800/50">
-                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-8 sm:w-10 text-right">${m.teamA}</span>
+                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-10 sm:w-12 whitespace-nowrap text-right">${m.teamA}</span>
                                         <input name="scoreA" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-base rounded py-1.5 focus:border-pink-500 outline-none transition-colors appearance-none">
-                                        <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic">vs</span>
+                                        <span class="text-zinc-600 text-[10px] sm:text-xs font-black italic whitespace-nowrap">vs</span>
                                         <input name="scoreB" type="number" min="0" required placeholder="分" class="w-12 sm:w-16 bg-black border border-zinc-700 text-white text-center font-bold text-base rounded py-1.5 focus:border-pink-500 outline-none transition-colors appearance-none">
-                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-8 sm:w-10">${m.teamB}</span>
+                                        <span class="font-black text-zinc-300 text-xs sm:text-sm w-10 sm:w-12 whitespace-nowrap">${m.teamB}</span>
                                         <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white p-2 rounded transition-transform active:scale-95 ml-1 sm:ml-2 shrink-0" title="儲存"><i data-lucide="save" class="w-4 h-4"></i></button>
                                     </form>`;
                             }
