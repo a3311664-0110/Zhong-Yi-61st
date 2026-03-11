@@ -673,10 +673,10 @@
                 if(!container) return;
 
                 const groups = [
-                    { grade: '3', title: '三年級', classes: '301, 302, 303' },
-                    { grade: '4', title: '四年級', classes: '401, 402, 403' },
-                    { grade: '5', title: '五年級', classes: '501, 502, 503' },
-                    { grade: '6', title: '六年級', classes: '601, 602, 603' }
+                    { grade: '3', title: '三年級', classes: '301, 302, 303', rainPlan: '如遇雨天，則延至 5/6(三) 至 5/7(四)、5/12(二) 進行，比賽時間及賽程不變。' },
+                    { grade: '4', title: '四年級', classes: '401, 402, 403', rainPlan: '如遇雨天，則延至 5/6(三) 至 5/7(四)、5/12(二) 進行，比賽時間及賽程不變。' },
+                    { grade: '5', title: '五年級', classes: '501, 502, 503', rainPlan: '如遇雨天，則延至 5/13(三) 至 5/15(五) 進行，比賽時間及賽程不變。' },
+                    { grade: '6', title: '六年級', classes: '601, 602, 603', rainPlan: '如遇雨天，則延至 5/13(三) 至 5/15(五) 進行，比賽時間及賽程不變。' }
                 ];
 
                 const createMatchItem = (m) => {
@@ -717,9 +717,15 @@
 
                 container.innerHTML = groups.map(g => `
                     <div class="bg-zinc-950 p-4 sm:p-5 rounded-lg border border-zinc-800/50">
-                        <h4 class="text-lg sm:text-xl font-black text-white mb-3 sm:mb-4 border-b-2 border-zinc-800 pb-2 sm:pb-3 flex items-center justify-between">
-                            ${g.title} <span class="text-[10px] sm:text-xs font-bold text-pink-500 bg-pink-500/10 px-2 py-1 rounded-sm tracking-widest">${g.classes}</span>
-                        </h4>
+                        <div class="border-b-2 border-zinc-800 pb-3 sm:pb-4 mb-3 sm:mb-4">
+                            <h4 class="text-lg sm:text-xl font-black text-white flex items-center justify-between mb-2.5">
+                                ${g.title} <span class="text-[10px] sm:text-xs font-bold text-pink-500 bg-pink-500/10 px-2 py-1 rounded-sm tracking-widest">${g.classes}</span>
+                            </h4>
+                            <div class="flex items-start sm:items-center text-xs sm:text-sm text-blue-300 bg-blue-950/20 p-2.5 rounded border border-blue-900/50">
+                                <i data-lucide="cloud-rain" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 shrink-0 mt-0.5 sm:mt-0 opacity-80"></i>
+                                <span class="leading-relaxed tracking-wide">${g.rainPlan}</span>
+                            </div>
+                        </div>
                         <ul class="space-y-2 sm:space-y-3">
                             ${state.matches.filter(m => m.grade === g.grade).map(createMatchItem).join('')}
                         </ul>
